@@ -1,0 +1,186 @@
+{% extends "frontend/index.html" %}
+{% load static %}
+
+{% block content %}
+   <!--================Blog Area =================-->
+   <section class="blog_area single-post-area section-padding" style="padding-top: 10px;">
+    <div class="container">
+       <div class="row">
+          <div class="col-lg-8 posts-list">
+              <div class="section-top-border">
+                  <h3>Galeri Foto</h3>
+                  <div class="row gallery-item">
+                    {% for ViewGalerry in FotoView  %}
+                        <div class="col-md-4">
+                            <a href="{% static 'frontend/img/gallery/' %}{{ ViewGalerry.gallery_img }}" class="img-pop-up">
+                                <div class="single-gallery-image" style="background: url('{% static 'frontend/img/gallery/' %}{{ ViewGalerry.gallery_img }}');" >
+                                    
+                                    <div style="padding:3px; background-color:#146e42eb;">
+                                        <center><p style="color: cyan;">{{ ViewGalerry.album_id.album_name }}</p></center>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                  </div>
+              </div>
+             <div class="navigation-top">
+                <div class="d-sm-flex justify-content-between text-center">
+                   
+                   <div class="col-sm-4 text-center my-2 my-sm-0">
+                      <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
+                   </div>
+                   <ul class="social-icons">
+                      <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                      <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                   </ul>
+                </div>
+                <!-- berita terikini -->
+                
+             </div>
+             <div class="section-top-border">
+                <h3>Video Terbaru</h3>
+                <div class="row">
+                    <div class="col-xl-6">
+                        <span style="font-size: medium; background-color: #267951; color: black; padding: 3px; color: white;">Mensos Gandeng ITS Buat Kapal & Motor Listrik</span>
+                        
+                        <div class="embed-responsive embed-responsive-21by9">
+                        <iframe width="350" height="320" src="https://www.youtube.com/embed/QD-OnsXw78k" 
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
+                        clipboard-write; encrypted-media; gyroscope; picture-in-picture "allowfullscreen></iframe>
+                          </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <span style="font-size: medium; background-color: #267951; color: black; padding: 3px; color: white;">Lunch Talk : Bupati Dogiyai Membangun Dogiyai</span>
+                        <div class="embed-responsive embed-responsive-21by9">
+                            <iframe width="350" height="320" src="https://www.youtube.com/embed/4PEM5Z2VoU8" 
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
+                        clipboard-write; encrypted-media; gyroscope; picture-in-picture "allowfullscreen></iframe>
+                          </div>
+                    </div>
+                </div>
+                <div class="clear" style="padding-top: 10px;"></div>
+                <div class="row">
+                    <div class="col-xl-6">
+                        <span style="font-size: medium; background-color: #267951; color: black; padding: 3px; color: white;">Pesona Raja Ampat</span>
+                        <div class="embed-responsive embed-responsive-21by9">
+                            <iframe width="350" height="320" src="https://www.youtube.com/embed/UJiVARkYs0c" 
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
+                        clipboard-write; encrypted-media; gyroscope; picture-in-picture "allowfullscreen></iframe>
+                          </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <span style="font-size: medium; background-color: #267951; color: black; padding: 3px; color: white;">10 Tempat Wisata Paling Indah Di Papua</span>
+                        <div class="embed-responsive embed-responsive-21by9">
+                            <iframe width="350" height="320" src="https://www.youtube.com/embed/2v2py1-I17M" 
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
+                        clipboard-write; encrypted-media; gyroscope; picture-in-picture "allowfullscreen></iframe>
+                          </div>
+                   </div>
+                </div>
+                
+               
+            </div>
+           
+             <div class="weekly2-news-area pt-50 pb-30 gray-bg">
+              <div class="container">
+                  <div class="weekly2-wrapper">
+                     
+                      <div class="row">
+      
+                          <div class="col-lg-12">
+                              <div class="slider-wrapper">
+                                  <!-- section Tittle -->
+                                  <div class="row">
+                                      <div class="col-lg-12">
+                                          <div class="small-tittle mb-30">
+                                              <h4>Berita Terkait</h4>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <!-- Slider -->
+                                  <div class="row">
+                                      <div class="col-lg-12">
+                                          <div class="weekly2-news-active d-flex">
+                                              <!-- Single -->
+                                              {% for listBeritaTerkait in beritaTerkait %}
+                                                <div class="weekly2-single">
+                                                    <div class="weekly2-img">
+                                                        <img src="{% static 'frontend/img/news_/' %}{{ listBeritaTerkait.posts_img }}" alt="" width="202" height="133">
+                                                        <p align='justify' style="font-size: 12px;">{{listBeritaTerkait.user_id.full_name}}  | {{listBeritaTerkait.posts_date}} </p>
+                                                    </div>
+                                                    <div class="weekly2-caption">
+                                                        <span style="background-color: #14f8e9; padding: 3px; border-radius: 2px; font-size: small;"><b>{{listBeritaTerkait.category_id.categorys}}</b></span>
+                                                        <h4><a href="#">{{listBeritaTerkait.posts_title}}</a></h4>
+                                                        
+                                                    </div>
+                                                </div> 
+                                              {% endfor %}
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>  
+             
+             
+          </div>
+          <div class="col-lg-4">
+              <div class="blog_right_sidebar">
+                  <aside class="single_sidebar_widget search_widget">
+                      <form action="#">
+                          <div class="form-group">
+                              <div class="input-group mb-3">
+                                  <input type="text" class="form-control" placeholder='Search Keyword'
+                                      onfocus="this.placeholder = ''"
+                                      onblur="this.placeholder = 'Search Keyword'">
+                                  <div class="input-group-append">
+                                      <button class="btns" type="button"><i class="ti-search"></i></button>
+                                  </div>
+                              </div>
+                          </div>
+                          <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                              type="submit">Search</button>
+                      </form>
+                  </aside>
+                  <aside class="single_sidebar_widget post_category_widget">
+                    <h4 class="widget_title">Kategori</h4>
+                    <ul class="list cat-list">
+
+                      {% for categoryNews in dataJumlahKategori %}
+                          <li>
+                              <a href="#" class="d-flex">
+                                  <p>{{ categoryNews.categorys }}</p>
+                                  <p>&nbsp;({{categoryNews.count_post}})</p>
+                              </a>
+                          </li>
+                      {% endfor %}
+
+                    </ul>
+                </aside>
+                  <aside class="single_sidebar_widget popular_post_widget">
+                      <h3 class="widget_title">Terpopuler</h3>
+                            {% for dataTerpopuler in databeritaTerpopulerView %}
+                                <div class="media post_item">
+                                    <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px">
+                                    <div class="media-body">
+                                        <a href="detail_news.html">
+                                            <h3>{{ dataTerpopuler.posts_title }}</h3>
+                                        </a>
+                                        <p>{{ dataTerpopuler.posts_date }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                      
+                  </aside>
+                  
+              </div>
+          </div>
+       </div>
+    </div>
+ </section>
+ <!--================ Blog Area end =================-->
+ {% endblock %}

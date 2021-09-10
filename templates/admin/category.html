@@ -1,0 +1,131 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="page-title"><span class="fa fa-tag"></span> Data Category</h3>
+            <div class="d-inline-block align-items-center">
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="icon-Settings-2"></i></a></li>
+                        <li class="breadcrumb-item" aria-current="page">Master</li>
+                        <li class="breadcrumb-item active" aria-current="page">Data Category</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <a class="pull-up btn btn-sm btn-outline btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg-addcategory"><span class="fa fa-plus"></span> Tambah Kategori</a>
+    </div>
+</div>
+<div class="row" style="padding-top: 10px;">
+<div class="col-12">
+    <div class="box">
+       <!-- /.box-header -->
+       <div class="box-body">
+           <div class="table-responsive">
+             <table id="example1" class="table table-bordered table-striped" alt="test">
+               <thead>
+                   <tr>
+                       <th>No</th>
+                       <th>Category</th>
+                       <th>Status</th>
+                       <th>Aksi</th>
+                   </tr>
+               </thead>
+               <tbody>
+                    {% for dataKategori in kategory %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ dataKategori.categorys }} </td>
+                            <td>
+                                <center>
+                                    {% if dataKategori.category_status == 'Y' %}
+                                    <span class="badge badge-primary"><span class="fa fa-check"></span> Aktif</span>
+                                    {% else %}
+                                    <span class="badge badge-warning"><span class="fa fa-times"></span> Tidak Aktif</span>
+                                    {% endif %}
+                                </center>   
+                            </td>
+                            <td style="text-align: center;">
+                                <a class="pull-up btn btn-sm btn-outline btn-info" data-toggle="modal" data-target=".bs-example-modal-lg-{{dataKategori.category_id}}"><span class="fa fa-edit" title="Edit"></span></a>
+                                <a href="{% url 'cemarapapua_admin:delcategory' dataKategori.category_id %}" class="btn btn-sm btn-outline btn-danger pull-up " onclick="return confirm('Anda yakin mau menghapus Kategori ini?');">
+                                <span class="fa fa-trash" title="Hapus"></span></a>
+                            </td>
+                            <!-- /.modal -->
+
+                            <div  class="modal_edit modal fade bs-example-modal-lg-{{dataKategori.category_id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content" style="background-color: #10bdff;">
+                                        <div class="modal-header" style="background-color: #10bdff; color: white;">
+                                            <h4 class="modal-title" id="myLargeModalLabel"><span class="fa fa-edit"></span> Edit Kategori</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        </div>
+                                        <div class="modal-body" style="background: ghostwhite;">
+                                            <form method="POST" action="{% url 'cemarapapua_admin:editcategory' dataKategori.category_id %}">
+                                                {% csrf_token %} 
+                                                <div class="form-group row">
+                                                    <label class="col-form-label col-md-4">Kategory Berita</label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" type="text" name="categorys" value="{{ dataKategori.categorys }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-6"></div>
+                                                    <div class="col-md-6">
+                                                        <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                    </tr>
+                    {% endfor %}
+               </tbody>
+             </table>
+           </div>
+       </div>
+       <!-- /.box-body -->
+     </div>
+     <!-- /.box -->        
+   </div>
+</div>
+<!-- modal Add Category -->
+<div class="modal fade bs-example-modal-lg-addcategory" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color: #10bdff;">
+            <div class="modal-header" style="background-color: #10bdff; color: white;">
+                <h4 class="modal-title" id="myLargeModalLabel"><span class="fa fa-user-plus"></span> Tambah Kategori</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background: ghostwhite;">
+                <form  method="POST" action="{% url 'cemarapapua_admin:addcategory' %}">
+                    {% csrf_token %} 
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Kategori Berita</label>
+                        <div class="col-md-6">
+                            {{form.categorys}}
+                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">
+                            <p align = 'right'><button type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%  endblock %}

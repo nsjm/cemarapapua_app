@@ -1,0 +1,48 @@
+{% load static %}
+{% block content %}
+
+    <div class="weekly2-news-area pt-50 pb-30 gray-bg" style="padding-top: 10px; padding-bottom: 10px; background: #2679511c;">
+        <div class="container">
+            <div class="weekly2-wrapper">
+               
+                <div class="row">
+    
+                    <div class="col-lg-12">
+                        <div class="slider-wrapper">
+                            <!-- section Tittle -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="small-tittle mb-30">
+                                        <h4>Kegiatan Gereja Terkait</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slider -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="weekly2-news-active d-flex">
+                                        <!-- berita utama -->
+                                        {% for terkaitGereja in beritaTerkait %}
+                                        <div class="weekly2-single">
+                                            <div class="weekly2-img">
+                                                <img src="{% static 'frontend/img/news_/' %}{{ terkaitGereja.posts_img }}" alt="">
+                                            </div>
+                                            <div class="weekly2-caption">
+                                                <h4><a href="#">{{ terkaitGereja.posts_title }}</a></h4>
+                                                <p>Oleh : {{ terkaitGereja.user_id.full_name }}  |  {{ terkaitGereja.category_id.categorys }}</p>
+                                            </div>
+                                        </div>
+
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+{% endblock %}

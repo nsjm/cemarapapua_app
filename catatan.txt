@@ -1,0 +1,2 @@
+with connection.cursor() as berkah:
+                            berkah.execute('')

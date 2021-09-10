@@ -1,0 +1,40 @@
+{% load static %}
+{% block content %}
+<div class="weekly3-news-area pt-80 pb-130">
+    <div class="container">
+        <div class="weekly3-wrapper">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-tittle mb-30">
+                        <h4>Galeri Foto</h4>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="section-tittle" style="margin-left: 60%;">
+                        <a  href="#" class="btn btn-xs" style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px; padding-right: 10px;"><h5   style="font-size: small; color: white;"><span class="fa fa-eye"></span> Lihat Semua</h5></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="weekly3-news-active dot-style">
+                        {% for dataHomeGallery in galleryHome %}
+                        <div class="weekly3-single">
+                            <div class="weekly3-img">
+                                <img src="{% static 'frontend/img/gallery/' %}{{ dataHomeGallery.gallery_img }}" alt="" width="263" height="210">
+                            </div>
+                            <div class="weekly3-caption">
+                                <h4><a href="detail_news.html" style="font-size: medium;">{{ dataHomeGallery.gallery_name }}</a></h4>
+                                <p style="font-size: small;">{{ dataHomeGallery.album_id.album_name }} | {{ dataHomeGallery.gallery_date }} | {{ dataHomeGallery.user_id.full_name }}</p>
+                            </div>
+                        </div> 
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+{% endblock %}

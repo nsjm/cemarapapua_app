@@ -1,0 +1,203 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="page-title"><span class="fa fa-tag"></span> Data Master Menu</h3>
+            <div class="d-inline-block align-items-center">
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                        <li class="breadcrumb-item" aria-current="page">Master</li>
+                        <li class="breadcrumb-item active" aria-current="page">Data Master Menu</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <a class="pull-up btn btn-sm btn-outline btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg-AddMenu"><span class="fa fa-plus"></span> Tambah Menu</a>
+    
+    </div>
+</div>
+<div class="row" style="padding-top: 10px;">
+<div class="col-12">
+
+    <div class="box">
+       
+       <!-- /.box-header -->
+       <div class="box-body">
+           <div class="table-responsive">
+             <table id="example1" class="table table-bordered table-striped" alt="test">
+               <thead>
+                   <tr>
+                        <th>No</th>
+                        <th>Id Menu</th>
+                        <th>Id Parent</th>
+                        <th>Menu</th>
+                        <th>Url</th>
+                        <th>Icon</th>
+                        <th>Status</th>
+                        <th>Level</th>
+                        <th style="width: 15%;">Aksi</th>
+                   </tr>
+               </thead>
+               <tbody>
+                
+                
+                {% for dataMenu in Vmenu %}
+                
+                    <tr>
+                       <td>{{ forloop.counter }}</td>
+                       <td>{{ dataMenu.menu_id }} </td>
+                       <td>{{ dataMenu.parent_id}}</td>
+                       <td>{{ dataMenu.menu }}</td>
+                       
+                       <td>{{ dataMenu.url }}</td>
+                       <td><center> <span class="{{ dataMenu.icon }}"></span></center></td>
+                       <td>
+                        <center>
+                             <a href="">
+                                {% if dataMenu.status == 'aktif' %}
+                                 <span class="badge badge-success"><span class="fa fa-check"></span>  Aktif</span>
+                                {% else %}
+                                <span class="badge badge-danger"><span class="fa fa-times"></span>  Tidak Akif</span>
+                                {% endif %}
+                            </a>
+                             
+                         </center>
+                       </td>
+                       <td>
+                           {% if dataMenu.level == 'F' %}
+                           <span class="badge badge-warning"><span class="fa fa-paper-plane"></span> Frontend</span>
+                           {% else %}
+                           <span class="badge badge-warning"><span class="fa fa-desktop"></span> Admin</span>
+                           {% endif %}
+
+                        </td>
+                        <td style="text-align: center;">
+                            <a class="pull-up btn btn-sm btn-outline btn-info" data-toggle="modal" data-target=".bs-example-modal-lg-{{dataMenu.menu_id}}"><span class="fa fa-edit" title="Edit"></span></a>
+                            <a href="{% url 'cemarapapua_admin:delmenu' dataMenu.menu_id %}" class="btn btn-sm btn-outline btn-danger pull-up " onclick="return confirm('Anda yakin mau menghapus Menu ini?');">
+                                <span class="fa fa-trash" title="Hapus"></span>
+                            </a>
+                            
+                        </td>
+                        <!-- /.modal -->
+
+                        <div  class="modal_edit modal fade bs-example-modal-lg-{{dataMenu.menu_id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content" style="background-color: #10bdff;">
+                                    <div class="modal-header" style="background-color: #10bdff; color: white;">
+                                        <h4 class="modal-title" id="myLargeModalLabel"><span class="fa fa-edit"></span> Edit Menu</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body" style="background: ghostwhite;">
+                                        <form method="POST" action="{% url 'cemarapapua_admin:editmenu' dataMenu.menu_id %}">
+                                            {% csrf_token %} 
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">Menu</label>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" type="text" name="menu" value="{{ dataMenu.menu }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">Parent ID</label>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" type="text" name="parent_id" value="{{ dataMenu.parent_id }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">URL</label>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" type="text" name="url" value="{{ dataMenu.url }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">Icon</label>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" type="text" name="icon" value="{{ dataMenu.icon }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-6"></div>
+                                                <div class="col-md-6">
+                                                    <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                   </tr>
+                
+                {% endfor %}
+
+                   
+               </tbody>
+             </table>
+           </div>
+       </div>
+       <!-- /.box-body -->
+     </div>
+     <!-- /.box -->        
+   </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg-AddMenu" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color: #10bdff;">
+            <div class="modal-header" style="background-color: #10bdff; color: white;">
+                <h4 class="modal-title" id="myLargeModalLabel"><span class="fa fa-user-plus"></span> Tambah Menu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background: ghostwhite;">
+                <form  method="POST" action="{% url 'cemarapapua_admin:addmenu' %}">
+                    {% csrf_token %} 
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Menu</label>
+                        <div class="col-md-6">
+                            {{form.menu}}
+                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Parent ID</label>
+                        <div class="col-md-6">
+                            {{form.parent_id}}
+                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">URL</label>
+                        <div class="col-md-6">
+                            {{form.url}}
+                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Icon</label>
+                        <div class="col-md-6">
+                            {{form.icon}}
+                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">
+                            <p align = 'right'><button type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+{%  endblock %}

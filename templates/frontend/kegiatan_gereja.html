@@ -1,0 +1,144 @@
+{% extends "frontend/index.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="blog_area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="blog_left_sidebar">
+                    {% for listGereja in dataMenuGerejaView  %}
+
+                    <article class="blog_item">
+                        <div class="blog_item_img">
+                            <img class="card-img rounded-0" src="{% static 'frontend/img/news_/' %}{{ listGereja.posts_img }}" alt="" width="" height="380">
+                            <a href="#" class="blog_item_date">
+                                <h3>15</h3>
+                                <p>Jan</p>
+                            </a>
+                        </div>
+
+                        <div class="blog_details">
+                            <a class="d-inline-block" href="detail_news.html">
+                                <h2>{{ listGereja.posts_title }}</h2>
+                            </a>
+                             <!-- {% autoescape off %} -->
+                                {{ listGereja.posts_desc|slice:":255"}}
+                             <!-- {% endautoescape %} -->
+                             <a href="detail.html" style="background-color:rgb(9, 236, 122) ; padding: 5px; border-radius: 5px;"><i><b>Baca Selanjutnya</b> </i></a>
+
+                             <p>
+                                Keyword:<span style="background-color:#f1efd7; border-radius: 2px;"><i> {{ listGereja.posts_keyword }}</i></span>
+                             </p>
+                            <ul class="blog-info-link">
+                                <li><a href="#"><i class="fa fa-user"></i> {{ listGereja.user_id.full_name }}</a></li>
+                                <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                <li><a href="#"><i class="fa fa-label"></i> {{ listGereja.category_id.categorys }}</a></li>
+                            </ul>
+
+                        </div>
+                    </article>
+
+                    {% endfor %}
+
+                   
+
+                    <nav class="blog-pagination justify-content-center d-flex">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a href="#" class="page-link" aria-label="Previous">
+                                    <i class="ti-angle-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">1</a>
+                            </li>
+                            <li class="page-item active">
+                                <a href="#" class="page-link">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link" aria-label="Next">
+                                    <i class="ti-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                </div>
+                
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <form action="#">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder='Search Keyword'
+                                        onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'Search Keyword'">
+                                    <div class="input-group-append">
+                                        <button class="btns" type="button"><i class="ti-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                type="submit">Search</button>
+                        </form>
+                    </aside>
+                    <aside class="single_sidebar_widget post_category_widget">
+                        <h4 class="widget_title">Kategori</h4>
+                        <ul class="list cat-list">
+                            {% for categoryNews in dataJumlahKategori %}
+                            <li>
+                                <a href="#" class="d-flex">
+                                    <p>{{ categoryNews.categorys }}</p>
+                                    <p>&nbsp;({{categoryNews.count_post}})</p>
+                                </a>
+                            </li>
+                      {% endfor %}
+                        </ul>
+                    </aside>
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title">Terpopuler</h3>
+                        {% for dataTerpopuler in databeritaTerpopulerView %}
+                        <div class="media post_item">
+                            <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px">
+                            <div class="media-body">
+                                <a href="detail_news.html">
+                                    <h3>{{ dataTerpopuler.posts_title }}</h3>
+                                </a>
+                                <p>{{ dataTerpopuler.posts_date }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </aside>
+
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title">Firman Tuhan</h3>
+                        {% for dataListFirtu in firtuGerejaView %}
+                        <div class="media post_item">
+                            <!-- <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px"> -->
+                            <div class="media-body">
+                                <a href="detail_news.html">
+                                    <h3>{{ dataListFirtu.firtu_title }}</h3>
+                                </a>
+                                <p>"{{ dataListFirtu.firtu_desc }}"</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </aside>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% include 'frontend/kegiatan_terkait.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{%  endblock %}

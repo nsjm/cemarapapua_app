@@ -1,0 +1,39 @@
+{% load static %}
+{% block content %}
+<div class="col-lg-4">
+    <div class="most-recent-area">
+        
+        <div class="small-tittle mb-20">
+            <h4>Terpopuler</h4>
+        </div>
+        {% for TerpopulerOne in dataterpopulerTop %}
+        <div class="most-recent mb-40">
+            <div class="most-recent-img">
+                <img src="{% static 'frontend/img/news_/logistik.jpg' %}" alt="">
+                <div class="most-recent-cap">
+                    <span class="bgbeg">Terpopuler </span>
+                    <span class="bgbeg" style="background-color: #42cd60;">{{ TerpopulerOne.category_id.categorys }} </span>
+                    
+                    <h4><a href="detail_news.html">{{ TerpopulerOne.posts_title }}<br>
+                        </a></h4>
+                    <p>{{ TerpopulerOne.user_id.full_name }}  |  {{ TerpopulerOne.posts_date }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for beritaTerpopulerAll in databeritaTerpopulerView %}
+        <div class="most-recent-single">
+            <div class="most-recent-images">
+                <img src="{% static 'frontend/img/gallery/most_recent1.png' %}{{ beritaTerpopulerAll.posts_img }}" alt="">
+            </div>
+            <div class="most-recent-capt">
+                <h4><a href="detail_news.html">{{ beritaTerpopulerAll.posts_title }}</a></h4>
+                <p>{{ beritaTerpopulerAll.user_id.full_name }}  |  {{ beritaTerpopulerAll.posts_date }} | {{ beritaTerpopulerAll.category_id.categorys }} </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

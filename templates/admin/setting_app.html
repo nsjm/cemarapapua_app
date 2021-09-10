@@ -1,0 +1,101 @@
+{% extends "admin/index.html" %}
+{% load static %}
+{% block content %}
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="page-title">Setting Aplikasi</h3>
+            <div class="d-inline-block align-items-center">
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                        <li class="breadcrumb-item" aria-current="page">Master</li>
+                        <li class="breadcrumb-item active" aria-current="page">Setting Aplikasi</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% for listSettingAPP in VsettingAplikasi %}
+<!-- Main content -->
+<section class="content">
+
+  <div class="row">
+
+    <div class="col-12">
+      <div class="box">
+          
+        <div class="box-header">
+            <h4 class="box-title">Setting Aplikasi</h4>  
+        </div>
+        <!-- setting looping -->
+        
+        <div class="box-body">
+            <div class="form-group row">
+                <label class="col-form-label col-md-2">Setting Nama Aplikasi</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" value="{{ listSettingAPP.setting_about_title }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-md-2">Deskripsi Aplikasi <br><i>*click Text For Edit</i></label>
+                <div class="col-md-10">
+                    <div class="example">
+                        <div data-provide="markdown-editable" data-iconlibrary="fa">
+                            {% autoescape off %}
+                             {{ listSettingAPP.setting_desc_app }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-md-2">Tim Redaksi <br><i>*click Text For Edit</i></label>
+                
+                <div class="col-md-10">
+                    <div class="example">
+                        <div data-provide="markdown-editable" data-iconlibrary="fa">
+                            {% autoescape off %}
+                                {{ listSettingAPP.setting_about_organisasi }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-md-2">Email</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="email" name="email" value="{{ listSettingAPP.setting_email }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-md-2">No Hp.</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="tel" name="tel" value="{{ listSettingAPP.setting_nohp }}">
+                </div>
+            </div>
+			
+            <div class="form-group row">
+                <div class="col-10"></div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary pull-up"> <span class="fa fa-save"></span> Simpan</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.box-body -->
+     
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- ./col -->
+  </div>
+  <!-- /.row -->
+</section>
+<!-- /.content -->
+{% endfor %}
+{%  endblock %}

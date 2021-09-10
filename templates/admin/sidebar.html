@@ -1,0 +1,40 @@
+{% load static %}
+{% block content %}
+<aside class="main-sidebar">
+    <section class="sidebar position-relative">	
+	  	<div class="multinav">
+		  <div class="multinav-scroll" style="height: 100%;">	
+			  <ul class="sidebar-menu" data-widget="tree">	
+				
+				{% for menus in menuAdmin %}
+                    {% if menus.parent_id == 0 %}
+					<li class="{% if menus.is_submenu %}treeview{% endif %}">
+							<a href="{{menus.url}}"> 
+								<i class="{{ menus.icon }}"><span class="path1"></span><span class="path2"></span></i>
+								<span>{{ menus.menu }}</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									{% for submenu in menuAdmin %}
+										{% if submenu.parent_id == menus.menu_id and submenu.parent_id != 0 %}
+											<a href="{{ submenu.url }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>{{ submenu.menu }}</a>
+										{% endif %}
+									{% endfor %}
+								</li>
+							</ul>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+		
+	
+			  </ul>
+		  </div>
+		</div>
+    </section>
+	<div class="sidebar-footer">
+		<a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Settings" aria-describedby="tooltip92529"><span class="icon-Settings-2"></span></a>
+		<a href="mailbox.html" class="link" data-toggle="tooltip" title="" data-original-title="Email"><span class="icon-Mail"></span></a>
+		<a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><span class="icon-Lock-overturning"><span class="path1"></span><span class="path2"></span></span></a>
+	</div>
+  </aside>
+  {% endblock %}

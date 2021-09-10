@@ -1,0 +1,72 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="page-title"><span class="fa fa-book"></span> Data Posting Kegiatan Gereja</h3>
+            <div class="d-inline-block align-items-center">
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                        <li class="breadcrumb-item" aria-current="page">Posting</li>
+                        <li class="breadcrumb-item active" aria-current="page">Data Posting Kegiatan Gereja</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <button class="waves-effect waves-light btn mb-5 bg-gradient-primary pull-up"><span class="fa fa-plus"></span> Tambah</button>
+    </div>
+</div>
+<div class="row" style="padding-top: 10px;">
+<div class="col-12">
+
+    <div class="box">
+       
+       <!-- /.box-header -->
+       <div class="box-body">
+           <div class="table-responsive">
+             <table id="example1" class="table table-bordered table-striped" alt="test">
+               <thead>
+                   <tr>
+                       <th>No</th>
+                       <th>Judul</th>
+                       <th>Tanggal</th>
+                       <th>Kategori</th>
+                       <th>Status</th>
+                       <th>Author</th>
+                       <th style="width: 15%;">Aksi</th>
+                   </tr>
+               </thead>
+               <tbody>
+                
+                
+                {% for listKGereja in ViewdataGereja %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ listKGereja.posts_title }}</td>
+                        <td>{{ listKGereja.posts_date }}</td>
+                        <td>{{ listKGereja.category_id.categorys }} </td>
+                        <td><span class="badge badge-info"><span class="fa fa-check-circle-o"></span> {{ listKGereja.posts_status }}</span></td>
+                        <td><span class="badge badge-success"><span class="fa fa-user-circle-o"></span> {{ listKGereja.user_id.full_name }}</span></td>
+                        <td style="text-align: center;">
+                            <button class="pull-up btn-sm btn-outline btn-info"><span class="fa fa-edit" title="Edit"></span></button>
+                            <button class="pull-up btn-sm btn-outline btn-danger"><span class="fa fa-trash" title="Hapus"></span></button>
+                        </td>
+                   </tr>
+                
+                {% endfor %}
+
+                   
+               </tbody>
+             </table>
+           </div>
+       </div>
+       <!-- /.box-body -->
+     </div>
+     <!-- /.box -->        
+   </div>
+</div>
+{%  endblock %}

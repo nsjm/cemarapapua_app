@@ -1,0 +1,183 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="page-title"><span class="fa fa-users"></span> Data User</h3>
+            <div class="d-inline-block align-items-center">
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                        <li class="breadcrumb-item" aria-current="page">Master</li>
+                        <li class="breadcrumb-item active" aria-current="page">Data Users</li>
+                    </ol>
+                </nav>
+            </div>
+            
+        </div>
+        <a class="pull-up btn btn-sm btn-outline btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg-addUser"><span class="fa fa-plus"></span> Tambah User</a>
+    </div>
+</div>
+<div class="row" style="padding-top: 10px;">
+<div class="col-12">
+
+    <div class="box">
+     
+       <!-- /.box-header -->
+       <div class="box-body">
+           <div class="table-responsive">
+             <table id="example1" class="table table-bordered table-striped" alt="test">
+               <thead>
+                   <tr>
+                       <th>No</th>
+                       <th>Fullname</th>
+                       <th>Username</th>
+                       <th>Level User</th>
+                       <th>Status</th>
+                       <th>Aksi</th>
+                   </tr>
+               </thead>
+               <tbody>
+             
+                {% for listMasteruser in ViewMaster_user %}
+                   <tr>
+                        <td> {{ forloop.counter }}</td>
+                        <td>{{listMasteruser.full_name}}</td>
+                        <td>{{listMasteruser.username}}</td>
+                        <td>{{listMasteruser.level_user}}</td>
+                        <td style="text-align: center;">
+                            <!-- {{listMasteruser.user_status}} -->
+                            {% if listMasteruser.user_status == 'Y'  %}
+                                Aktif
+                            {% else %}
+                                Tidak Aktif
+                            {% endif %}
+                        </td>
+                        <td style="text-align: center;">
+                            <a class="pull-up btn btn-sm btn-outline btn-info" data-toggle="modal" data-target=".bs-example-modal-lg-{{listMasteruser.user_id}}"><span class="fa fa-edit" title="Edit"></span></a>
+                            <a href="{% url 'cemarapapua_admin:deluser' listMasteruser.user_id %}" class="btn btn-sm btn-outline btn-danger pull-up " onclick="return confirm('Anda yakin mau menghapus User ini?');">
+                            <span class="fa fa-trash" title="Hapus"></span></a>
+                             <!-- /.modal -->
+
+                            <div sel_attr="{{ listMasteruser.level_user }}" class="modal_edit modal fade bs-example-modal-lg-{{listMasteruser.user_id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content" style="background-color: #10bdff;">
+                                        <div class="modal-header" style="background-color: #10bdff; color: white;">
+                                            <h4 class="modal-title" id="myLargeModalLabel"><span class="fa fa-edit"></span> Edit User</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        </div>
+                                        <div class="modal-body" style="background: ghostwhite;">
+                                            <form method="POST" action="{% url 'cemarapapua_admin:edituser' listMasteruser.user_id %}">
+                                                {% csrf_token %} 
+                                                <div class="form-group row">
+                                                    <label class="col-form-label col-md-4">Nama Lengkap</label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" type="text" name="full_name" value="{{ listMasteruser.full_name }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-form-label col-md-4">Username</label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" type="text" name="username" value="{{ listMasteruser.username }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-form-label col-md-4">Level</label>
+                                                    <div class="col-md-6">
+                                                        <select class="form-control select_edit" name="level_user">
+                                                            <option value="">Pilih Level</option>
+                                                            <option value="superadmin">Super Admin</option>
+                                                            <option value="admin">Admin</option>
+                                                            <option value="client">Client</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-6"></div>
+                                                    <div class="col-md-6">
+                                                        <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                        </td>
+                   </tr>
+                   {% endfor %}
+                   
+               </tbody>
+             </table>
+           </div>
+       </div>
+       <!-- /.box-body -->
+     </div>
+     <!-- /.box -->        
+   </div>
+</div>
+<!-- add user -->
+<div class="modal fade bs-example-modal-lg-addUser" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color: #10bdff;">
+            <div class="modal-header" style="background-color: #10bdff; color: white;">
+                <h4 class="modal-title" id="myLargeModalLabel"><span class="fa fa-user-plus"></span> Tambah User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background: ghostwhite;">
+                <form  method="POST" action="{% url 'cemarapapua_admin:addusers' %}">
+                    {% csrf_token %} 
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Nama Lengkap</label>
+                        <div class="col-md-6">
+                            {{form.full_name}}
+                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Username</label>
+                        <div class="col-md-6">
+                            {{form.username}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Password</label>
+                        <div class="col-md-6">
+                           {{form.password}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">Level</label>
+                        <div class="col-md-6">
+                            {{form.level_user}}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">
+                            <p align = 'right'><button type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Simpan</button></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+{%  endblock %}
+
+{% block js %}
+<script>
+    $('.modal_edit').on('shown.bs.modal', function (e) {
+        var modal_attr = $(this).attr('sel_attr');
+        $('.select_edit').val(modal_attr)
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% load static %}
+{% block content %}
+
+{% for listOpini in beritaTerkait %}
+<div class="row">
+    <div class="col-md-3" >
+        
+        <div style="background: burlywood; border-radius: 5px;">
+            <img src="{% static 'frontend/img/news_/' %}{{ listOpini.posts_img }}" alt="" width="250" height="210">
+            
+        </div>
+        <div style="background: rgb(178, 240, 188); padding: 2px;">
+            <p style="font-size: small;">
+                <span class="fa fa-calendar"></span> | {{ listOpini.posts_date }} <span class="fa fa-user"></span> | {{listOpini.user_id.full_name}}
+            </p>
+            <div>
+                <a href=""><h3 style="font-size: medium;"><b>{{ listOpini.posts_title }}</b></h3></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

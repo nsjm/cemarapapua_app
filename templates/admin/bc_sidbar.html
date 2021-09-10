@@ -1,0 +1,103 @@
+{% load static %}
+{% block content %}
+<aside class="main-sidebar">
+    <!-- sidebar-->
+    <section class="sidebar position-relative">	
+	  	<div class="multinav">
+		  <div class="multinav-scroll" style="height: 100%;">	
+			  <!-- sidebar menu-->
+			  <ul class="sidebar-menu" data-widget="tree">	
+				<!-- <li class="header">Dashboard & Apps</li> -->
+				<li class="treeview">
+				 
+					<a href="home">
+						<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+						<span>Dashboard</span>
+					</a>
+			
+				</li>
+				<!-- pengaturan -->
+				<!-- <li class="header">Settings </li> -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Chat-locked"><span class="path1"></span><span class="path2"></span></i>
+					<span>Data Master</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master User</a></li>
+					<li><a href="auth_register.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Menu</a></li>
+					<li><a href="{%  url 'cemarapapua_admin:category' %}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Master Kategori</a></li>
+				</ul>
+				</li>
+
+				<!-- <li class="header">Data Berita </li> -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Write"><span class="path1"></span><span class="path2"></span></i>
+					<span>Posting Berita</span>
+				</li>			
+				<li class="treeview">
+				  <a href="">
+					<i class="icon-File"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+					<span>Data Berita</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>					
+				  <ul class="treeview-menu">					
+					<li class="treeview">
+						<a href="{%  url 'cemarapapua_admin:berita' %}">
+							<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Data Berita
+						</a>
+					</li> 		
+					<li class="treeview">
+						<a href="#">
+							<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Kegiatan Gereja
+						</a>
+					</li> 
+					<li class="treeview">
+						<a href="#">
+							<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Firman Tuhan
+						</a>
+					</li> 					
+				  </ul>
+				</li>
+				
+				<!-- <li class="header">Gallery Wesbite </li> -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Book-open"><span class="path1"></span><span class="path2"></span></i>
+					<span>Gallery</span>
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="charts_chartjs.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Foto Galery</a></li>
+					<li><a href="charts_flot.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Video Gallery</a></li>
+				  </ul>
+				</li> 
+				<!-- <li class="header">RESPON PENGUNJUNG </li> -->
+				<li class="treeview">
+				  <a href="#">
+					<i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
+					<span>Komentar Pengunjung</span>
+				</a>
+				  
+				</li> 
+				
+					
+			  </ul>
+		  </div>
+		</div>
+    </section>
+	<div class="sidebar-footer">
+		<a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Settings" aria-describedby="tooltip92529"><span class="icon-Settings-2"></span></a>
+		<a href="mailbox.html" class="link" data-toggle="tooltip" title="" data-original-title="Email"><span class="icon-Mail"></span></a>
+		<a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><span class="icon-Lock-overturning"><span class="path1"></span><span class="path2"></span></span></a>
+	</div>
+  </aside>
+  {% endblock %}

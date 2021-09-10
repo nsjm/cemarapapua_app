@@ -1,0 +1,51 @@
+{% load static %}
+{% block content %}
+
+<section>
+    <div class="weekly2-news-area pt-50 pb-30 gray-bg" style="padding-top: 10px; padding-bottom: 10px;">
+        <div class="container">
+            <div class="weekly2-wrapper">
+               
+                <div class="row">
+    
+                    <div class="col-lg-12">
+                        <div class="slider-wrapper">
+                            <!-- section Tittle -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="small-tittle mb-30">
+                                        <h4>Lingkungan Pemerintah</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slider -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="weekly2-news-active d-flex">
+                                        <!-- berita utama -->
+                                        {% for HotNews in beritaUtama %}
+                                        <div class="weekly2-single">
+                                            <div class="weekly2-img">
+                                                <img src="{% static 'frontend/img/news_/' %}{{ HotNews.posts_img }}" alt="" width="345" height="230">
+                                            </div>
+                                            <div class="weekly2-caption">
+                                                <h4><a href="#">{{ HotNews.posts_title }}</a></h4>
+                                                <p>Oleh : {{ HotNews.user_id.full_name }}  |  {{ HotNews.category_id.categorys }}</p>
+                                            </div>
+                                        </div>
+
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</section>
+
+
+{% endblock %}

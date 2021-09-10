@@ -1,0 +1,90 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Cemara Papua | Portal Informasi Di Tanah Papua </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'frontend/img/favicon.ico' %}">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'frontend/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/ticker-style.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/cssbasbes.css' %}">
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=K7WLZMoAOImvOAOje6Fc4MxVFdNfXz-Ta_gJNWdzsOZ1gkDQkrMBh3AnqQRHsg-29YwHBXZBzT8opP0n--YcfkXQdZY4TfH4ow5R_PJcgt_AIsAkB2aquQI_af4Id446Kkh8hXT6NOWuGuIgyGlSrGolV0hZrHWqxSR-Vnbvrc_WCIp_gaZYXN9dZLtuv3JT" charset="UTF-8"></script></head>
+
+<body>
+<!-- Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img src="{% static 'frontend/img/logo/logo.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Preloader Start -->
+{% include 'frontend/header.html' %}
+
+<!-- content -->
+
+{% block content %} {% endblock %}
+
+
+<!-- footer -->
+{% include 'frontend/footer.html' %}
+
+
+
+<!-- JS here -->
+    <script src="{% static './frontend/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="{% static './frontend/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static './frontend/js/popper.min.js' %}"></script>
+    <script src="{% static './frontend/js/bootstrap.min.js' %}"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="{% static './frontend/js/jquery.slicknav.min.js' %}"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="{% static './frontend/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static './frontend/js/slick.min.js' %}"></script>
+    <!-- Date Picker -->
+    <script src="{% static './frontend/js/gijgo.min.js' %}"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="{% static './frontend/js/wow.min.js' %}"></script>
+    <script src="{% static './frontend/js/animated.headline.js' %}"></script>
+    <script src="{% static './frontend/js/jquery.magnific-popup.js' %}"></script>
+
+    <!-- Scrollup, nice-select, sticky -->
+    <script src="{% static './frontend/js/jquery.scrollUp.min.js' %}"></script>
+    <script src="{% static './frontend/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static './frontend/js/jquery.sticky.js' %}"></script>
+    
+    <!-- contact js -->
+    <script src="{% static './frontend/js/contact.js' %}"></script>
+    <script src="{% static './frontend/js/jquery.form.js' %}"></script>
+    <script src="{% static './frontend/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static './frontend/js/mail-script.js' %}"></script>
+    <script src="{% static './frontend/js/jquery.ajaxchimp.min.js' %}"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="{% static './frontend/js/plugins.js' %}"></script>
+    <script src="{% static './frontend/js/main.js' %}"></script>
+    
+</body>
+</html>
