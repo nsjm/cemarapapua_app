@@ -313,14 +313,6 @@ class Login(View):
                     }
         return render(request,'admin/login.html',dataLogin)
 
-class UserForm_login(forms.ModelForm):
-    class Meta:
-        model = Masteruser
-        fields = ['username','password']
-    username = forms.CharField(label='subject', widget=forms.TextInput(attrs={'class': "form-control"}))
-    password = forms.CharField(label='subject', widget=forms.PasswordInput(attrs={'class': "form-control"}))
-
-class CekLogin(View):
     def post(self, request):
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
@@ -332,21 +324,15 @@ class CekLogin(View):
             return redirect('cemarapapua_admin:home')
         else:
             return redirect('cemarapapua_admin:login')
-        # if(cekusername == 'True'):
-        #     print("Cocok , Redirect Ke Index Dashboard")
-        #     return redirect('cemarapapua_admin:home')
-        # else:
-        #     print("Redirect ke login page")
-        #     return redirect('cemarapapua_admin:login')
 
-        # password_from_form = 'bb'.encode('utf-8')
-        # password_from_db = b'$2b$12$.wiC1KNbrFNvq1hMgxOpKObti1JXbPybanyTQu68C7lYLKZG3dQKa'
-        # if bcrypt.checkpw(password_from_form, password_from_db):
-        #     print("Cocok , Redirect Ke Index Dashboard")
-        # else:
-        #     print("Redirect ke login page")
-        # return redirect('cemarapapua_admin:home')
-        
+        return redirect('cemarapapua_admin:login')
+
+class UserForm_login(forms.ModelForm):
+    class Meta:
+        model = Masteruser
+        fields = ['username','password']
+    username = forms.CharField(label='subject', widget=forms.TextInput(attrs={'class': "form-control"}))
+    password = forms.CharField(label='subject', widget=forms.PasswordInput(attrs={'class': "form-control"}))
 
 
             

@@ -43,6 +43,5 @@ urlpatterns = [
     path('postsnews/', Posts.as_view(),name='postsnews'),
     path('postsnews/AddPostBerita/', AddPostBerita.as_view(), name='addPosts'),
     path('login/', Login.as_view(), name='login'),
-    path('CekLogin/', CekLogin.as_view(),name='CekLogin'),
  
 ]
