@@ -258,18 +258,33 @@ class PostsFrom_add(forms.ModelForm):
 class AddPostBerita(View):
     def get(self, request):
         form = PostsFrom_add()
-        AddPosts = {
+        AddPosts = { 
             "form"  :   form
         }
         return render(request,'admin/addposts.html',AddPosts)
 
 class Proses_addBerita(View):
     def post(self,request):
-        formAddBerita = AddPostBerita(request.POST)
+        formAddBerita = PostsFrom_add(request.POST)
         if formAddBerita.is_valid():
+            print('blablabla')
             formAddBerita.save()
             return redirect('cemarapapua_admin:postsnews')
         return redirect('cemarapapua_admin:postsnews')
+
+# delete post berita
+class DeletePosts(View):
+    def get(self, request, pk):
+        try:
+            qryUpdatePosts = Postsberita.objects.get(posts_id = pk)
+            qryUpdatePosts.posts_status = 'draft'
+            qryUpdatePosts.save()
+
+        except Postsberita.DoesNotExist:
+            return redirect('cemarapapua_admin:postsnews')
+        return redirect('cemarapapua_admin:postsnews')
+# view detail berita admin
+
 
 class PostsGereja(View):
     def get(self, request):
