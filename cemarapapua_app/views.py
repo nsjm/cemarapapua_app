@@ -16,7 +16,7 @@ from django.contrib.auth import authenticate
 from django.contrib import messages
 from cemarapapua.settings import SESI_ADMIN
 
-from global_var.global_var import Security
+from global_var.global_var import Security, my_login_checking
 
 
 
@@ -323,6 +323,7 @@ class PostsOpini(View):
         return render(request,'admin/listopini.html',dataVkGereja)
 
 class Login(View):
+    @my_login_checking
     def get(self, request):
         formLogin = UserForm_login(request.POST)
         loginUser = "Sign in to continue to Creator."
