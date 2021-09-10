@@ -27,7 +27,7 @@ DEBUG = True
 
 SESI_ADMIN = 'cemarapapua_admin'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'localhost:8000']
 
 
 # Application definition

@@ -15,6 +15,7 @@ def cek_user(get_response):
         if request.path.startswith('/dashboardadmin/'):
             response = get_response(request)
 
+            print(request.session.get('next_admin'))
             if(request.session.get('next_admin')):
                 if request.get_host() in ALLOWED_HOSTS:
                     request.session['username_final_admin'] = request.session.get(SESI_ADMIN,'')
@@ -36,7 +37,7 @@ def cek_user(get_response):
 
                 #     if(request.path in ['/dash/login/']):
                 #         print('djancuk2')
-                #         return HttpResponseRedirect(reverse('cemarapapua_admin:index'))
+                #         return HttpResponseRedirect(reverse('cemarapapua_admin:home'))
 
                 # selisih = get_time(request,now,last_activity)
         
@@ -52,7 +53,7 @@ def cek_user(get_response):
                     menus = ['/dash/','/dash/logout/']
 
                     if(request.path in ['/dash/login/']):
-                        return HttpResponseRedirect(reverse('cemarapapua_admin:index'))     
+                        return HttpResponseRedirect(reverse('cemarapapua_admin:home'))     
                 return response
         else:
 
