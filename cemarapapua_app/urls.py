@@ -44,6 +44,7 @@ urlpatterns = [
     path('postsnews/AddPostBerita/', AddPostBerita.as_view(), name='addPosts'),
     path('postsnews/Proses_addBerita/', Proses_addBerita.as_view(), name='savePosts'),
     path('postsnews/DeletePosts/<int:pk>/', DeletePosts.as_view(), name='delpostsberita'),
+    path('postsnews/DetailPosts/<int:pk>/', DetailPosts.as_view(), name='detailpostsberita'),
     path('login/', Login.as_view(), name='login'),
     path('CekLogin/', CekLogin.as_view(),name='CekLogin'),
  

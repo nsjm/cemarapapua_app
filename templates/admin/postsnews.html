@@ -47,8 +47,8 @@
                        <td><span class="badge badge-info"><span class="fa fa-check-circle-o"></span> {{ listPostsNews.posts_status.upper }}</span></td>
                        <td><span class="badge badge-success"><span class="fa fa-user-circle-o"></span> {{ listPostsNews.user_id.full_name.title }}</span></td>
                        <td style="text-align: center;">
-                        <button class="waves-effect waves-light btn mb-5 bg-gradient-info pull-up btn-sm"><span class="fa fa-eye" title="Detail"></span></button>
-                        <button class="waves-effect waves-light btn mb-5 bg-gradient-success pull-up btn-sm"><span class="fa fa-edit" title="Edit"></span></button>
+                        <a href="{% url 'cemarapapua_admin:detailpostsberita' listPostsNews.posts_id %}" class="btn btn-sm btn-outline btn-danger pull-up ">
+                            <span class="fa fa-eye"></span></a>
                         <a href="{% url 'cemarapapua_admin:delpostsberita' listPostsNews.posts_id %}" class="btn btn-sm btn-outline btn-danger pull-up " onclick="return confirm('Anda yakin mau menghapus berita ini?');">
                                 <span class="fa fa-times"></span></a>
                        </td>

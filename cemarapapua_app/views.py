@@ -284,7 +284,14 @@ class DeletePosts(View):
             return redirect('cemarapapua_admin:postsnews')
         return redirect('cemarapapua_admin:postsnews')
 # view detail berita admin
-
+class DetailPosts(View):
+    def get(self, request, pk):
+        mDetailPosts = Postsberita.objects.filter(posts_id = pk)
+        dataPostsNews = {
+            "ViewDetailPostNews" : mDetailPosts,
+            
+        }
+        return render(request,'admin/detail_postsnews.html',dataPostsNews)
 
 class PostsGereja(View):
     def get(self, request):
