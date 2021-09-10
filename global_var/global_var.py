@@ -44,7 +44,7 @@ def my_login_checking(function):
     @wraps(function)
     def wrapper(self, request, *args, **kw):
         if not self.request.session.get(SESI_ADMIN):
-            return redirect('cemarapapua_admin:login')
+            return function(self, request, *args, **kw)
         else:
             return redirect('cemarapapua_admin:home')
     return wrapper
