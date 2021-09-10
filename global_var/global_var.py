@@ -1,6 +1,9 @@
 from django.db.models import Case, When, F, Value, BooleanField
 from cemarapapua_frontend.models import Mastermenu
 import bcrypt
+from cemarapapua.settings import SESI_ADMIN
+from functools import wraps
+from django.shortcuts import redirect
 
 def global_var(request):
     datamenuHome = Mastermenu.objects.filter(level='F', status = 'aktif').order_by('menu_id')
@@ -27,6 +30,24 @@ class Security:
 
     def pwd_macthing(self, pwd_db):
         return bcrypt.checkpw(self.pwd.encode('utf-8'), pwd_db.encode('utf-8'))
+
+def my_login_required(function):
+    @wraps(function)
+    def wrapper(self, request, *args, **kw):
+        if not self.request.session.get(SESI_ADMIN):
+            return redirect('cemarapapua_admin:login')
+        else:
+            return function(self, request, *args, **kw)
+    return wrapper
+
+def my_login_checking(function):
+    @wraps(function)
+    def wrapper(self, request, *args, **kw):
+        if not self.request.session.get(SESI_ADMIN):
+            return redirect('cemarapapua_admin:login')
+        else:
+            return redirect('cemarapapua_admin:home')
+    return wrapper
 
 
 
