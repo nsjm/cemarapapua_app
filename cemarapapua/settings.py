@@ -25,7 +25,9 @@ SECRET_KEY = 'ye-!wh2&!5$2wgeym(q_s$!dgik^gc5&tdian15yd-jpou4g8e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+SESI_ADMIN = 'cemarapapua_admin'
+
+ALLOWED_HOSTS = ['localhost', 'localhost:8000']
 
 
 # Application definition
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.cek_user',
 ]
 
 ROOT_URLCONF = 'cemarapapua.urls'
@@ -90,7 +93,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 
