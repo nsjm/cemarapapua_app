@@ -18,6 +18,12 @@
 </head>
 	
 <body class="hold-transition theme-primary bg-img" style="background-image: url({% static 'admin/images/auth-bg/bg-1.jpg' %})">
+	{% if messages %}
+    {% for message in messages %}
+      <div alt="{{message.tags}}" data="{{message}}" id="msg_pesan"></div>
+    {% endfor %}
+  {% endif %}
+
 	<div class="container h-p100">
 		<div class="row align-items-center justify-content-md-center h-p100">	
 			
@@ -83,6 +89,8 @@
 
 	<!-- Vendor JS -->
 	<script src="{% static 'admin/js/vendors.min.js' %}"></script>
+	<script src="{% static 'admin/js/noty.js' %}?version=1"></script>
+	<script src="{% static 'admin/js/cemarapapua.js' %}?version=1"></script>
 	<script src="{% static 'admin/js/pages/chat-popup.js' %}"></script>
     <script src="{% static 'admin/icons/feather-icons/feather.min.js' %}"></script>	
 

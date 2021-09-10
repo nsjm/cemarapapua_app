@@ -23,7 +23,12 @@
   </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
-	
+	{% if messages %}
+    {% for message in messages %}
+      <div alt="{{message.tags}}" data="{{message}}" id="msg_pesan"></div>
+    {% endfor %}
+  {% endif %}
+
 <div class="wrapper">
   <div id="loader"></div>
   	<!-- include file header.html -->
@@ -49,6 +54,8 @@
 </div>
 
 	<script src="{% static 'admin/js/vendors.min.js' %}"></script>
+	<script src="{% static 'admin/js/noty.js' %}?version=1"></script>
+	<script src="{% static 'admin/js/cemarapapua.js' %}?version=1"></script>
 	<script src="{% static 'admin/js/pages/chat-popup.js' %}"></script>
     <script src="{% static 'admin/icons/feather-icons/feather.min.js' %}"></script>	
 	<!-- <script src="{% static 'admin/vendor_components/apexcharts-bundle/dist/apexcharts.js' %}"></script> -->

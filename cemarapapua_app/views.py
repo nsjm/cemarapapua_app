@@ -13,6 +13,10 @@ from django import forms
 import datetime
 from ckeditor.widgets import CKEditorWidget
 from django.contrib.auth import authenticate
+from django.contrib import messages
+from cemarapapua.settings import SESI_ADMIN
+
+from global_var.global_var import Security
 
 
 
@@ -132,7 +136,7 @@ class AddUser(View):
             getPasswordField = formAddUser.cleaned_data.get('password')
             hashed = bcrypt.hashpw(getPasswordField.encode('utf-8'), bcrypt.gensalt())
             a = formAddUser.save(commit=False)
-            a.password = hashed
+            a.password = hashed.decode('utf-8')
             formAddUser.save()
             return redirect('cemarapapua_admin:user')
         return redirect('cemarapapua_admin:user')
@@ -329,16 +333,38 @@ class Login(View):
         return render(request,'admin/login.html',dataLogin)
 
     def post(self, request):
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        cekusername = Masteruser.objects.filter(username = username ).exists()
-        cekpassword = Masteruser.objects.filter(password = password).exists()
-        user = authenticate(request, username=username, password=password)
-        print(user)
-        if user is not None:
-            return redirect('cemarapapua_admin:home')
+        form = UserForm_login(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+
+            try:
+                data_user_client = Masteruser.objects.filter(username = username).count()
+                if data_user_client == 1:
+                    d_p = Security(password)
+                    data_u = Masteruser.objects.get(username = username)
+                    if d_p.pwd_macthing(data_u.password):
+
+                        request.session['next_admin'] = 'jancuk'
+                        request.session[SESI_ADMIN] = data_u.username
+
+                        request.session['fullname_admin'] = data_u.full_name
+                        request.session['uid_client'] = data_u.user_id
+                        
+                        messages.success(request, 'Selamat Datang, {}'.format(data_u.full_name.upper()))
+                        return redirect('cemarapapua_admin:home')
+                    else:
+                        messages.error(request, 'Password Salah !.')
+                        return redirect('cemarapapua_admin:login')
+                else:
+                    messages.error(request, 'User Tidak Ditemukan.')
+                    return redirect('cemarapapua_admin:login')
+            except Exception as e:
+                print('Error Login,',e)
+                messages.warning(request, 'Isi Form Dengan Benar !')
         else:
-            return redirect('cemarapapua_admin:login')
+            messages.warning(request, 'Mohon Isi Form Dengan Benar !')
 
         return redirect('cemarapapua_admin:login')
 
@@ -349,6 +375,11 @@ class UserForm_login(forms.ModelForm):
     username = forms.CharField(label='subject', widget=forms.TextInput(attrs={'class': "form-control"}))
     password = forms.CharField(label='subject', widget=forms.PasswordInput(attrs={'class': "form-control"}))
 
+class Logout(View):
+    def get(self, request):
+        request.session.flush()
+        messages.success(request, 'Anda Berhasil Logout. Sampai Jumpa Lagi...')
+        return redirect('cemarapapua_admin:login')
 
             
 

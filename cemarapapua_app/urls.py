@@ -45,5 +45,6 @@ urlpatterns = [
     path('postsnews/Proses_addBerita/', Proses_addBerita.as_view(), name='savePosts'),
     path('postsnews/DeletePosts/<int:pk>/', DeletePosts.as_view(), name='delpostsberita'),
     path('login/', Login.as_view(), name='login'),
+    path('logout/', Logout.as_view(), name='logout'),
  
 ]
