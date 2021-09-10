@@ -42,6 +42,8 @@ urlpatterns = [
     path('opini/', PostsOpini.as_view(),name='opini'),
     path('postsnews/', Posts.as_view(),name='postsnews'),
     path('postsnews/AddPostBerita/', AddPostBerita.as_view(), name='addPosts'),
+    path('postsnews/Proses_addBerita/', Proses_addBerita.as_view(), name='savePosts'),
+    path('postsnews/DeletePosts/<int:pk>/', DeletePosts.as_view(), name='delpostsberita'),
     path('login/', Login.as_view(), name='login'),
  
 ]
