@@ -10,7 +10,7 @@
                       <div class="box-body pr-0 pl-lg-50 pl-15 py-0">							
                           <div class="row align-items-center">
                               <div class="col-12 col-lg-8">
-                                  <h1 class="font-size-40 text-white">Welcome Redaktor! </h1>
+                                  <h1 class="font-size-40 text-white">Welcome {{ request.session.fullname_admin }}!</h1>
                                   <p class="text-white mb-0 font-size-20">
                                       Education is the passport to the future, So learn more & more 
                                   </p>
@@ -22,6 +22,24 @@
               </div>
           </div>
           <div class="row">
+              <div class="jumbotron">
+                  <ul>
+                      <li>CRUD Menu Gallery--->Kurang Update</li>
+                      <li>Menu Album ---->Selesai</li>
+                      <li>Display Data Komentar Pengunjung--->selesai</li>
+                      <li>Ubah Profil User ----> selesai</li>
+                      <li>Ubah Password----> selesai</li>
+                      <li>==========================</li>
+                      <li>Fitur Aktif Status Semua Menu</li>
+                      <li>Display Image Menu Posting Berita</li>
+                      <li>Edit Menu Posting Berita</li>
+                      <li>Display Image Menu Posting Firtu</li>
+                      <li>Edit Menu Posting Firtu</li>
+                      <li>catatan : pip freeze > requirements.txt</li>
+                  </ul>
+              </div>
+          </div>
+          <!-- <div class="row">
               <div class="col-12">														
                   <div class="box no-shadow mb-0 bg-transparent">
                       <div class="box-header no-border px-0">
@@ -232,6 +250,6 @@
                   </div>
               </div>
                           
-          </div>			
+          </div>			 -->
      
 {% endblock %}

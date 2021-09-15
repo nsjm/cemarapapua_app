@@ -15,7 +15,6 @@ def cek_user(get_response):
         if request.path.startswith('/dashboardadmin/'):
             response = get_response(request)
 
-            print(request.session.get('next_admin'))
             if(request.session.get('next_admin')):
                 if request.get_host() in ALLOWED_HOSTS:
                     request.session['username_final_admin'] = request.session.get(SESI_ADMIN,'')

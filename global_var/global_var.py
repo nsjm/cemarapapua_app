@@ -1,13 +1,17 @@
+from os import stat
+from django.core import exceptions
 from django.db.models import Case, When, F, Value, BooleanField
 from cemarapapua_frontend.models import Mastermenu
-import bcrypt
+import bcrypt,dropbox, os
 from cemarapapua.settings import SESI_ADMIN
 from functools import wraps
 from django.shortcuts import redirect
+from cemarapapua.settings import MEDIA_ROOT
+from django.core.files.storage import FileSystemStorage
 
 def global_var(request):
     datamenuHome = Mastermenu.objects.filter(level='F', status = 'aktif').order_by('menu_id')
-    datamenuAdmin = Mastermenu.objects.filter(level='A').annotate(
+    datamenuAdmin = Mastermenu.objects.filter(level='A', status = 'aktif').annotate(
                 is_submenu = Case(
                                         When(menu_id__in = Mastermenu.objects.exclude(parent_id = 0).values('parent_id'), then=Value(True)),
                                         default=False,
@@ -49,5 +53,25 @@ def my_login_checking(function):
             return redirect('cemarapapua_admin:home')
     return wrapper
 
+class dropbox_:
+    def __init__(self):
+        self.dbx = dropbox.Dropbox('fNYJnMeO5CQAAAAAAAAAAfaZc_MmCONfdNAFUY8zVqndxZG68dqrQYrKeQsPM3HH')
+    
+    def cekakun(self):
+        return self.dbx.users_get_current_account()
 
-
+    def upload(self,files,path='/cemarapapua_assets/',filename=''):
+        status = False
+        try:
+            self.dbx.files_upload(files, path+filename)
+            status = True
+        except Exception as e:
+            status = False
+            print('Error Upload Dropbox', e)
+        return status
+class upload_file:
+    def handle_uploaded_file(self, file_ ,filename=''):
+        fss = FileSystemStorage(location = MEDIA_ROOT)
+        file = fss.save(filename, file_)
+        file_url = fss.url(file)
+        return os.path.join(MEDIA_ROOT, file_url), file_url

@@ -1,22 +1,26 @@
+import re
 from typing import ValuesView
 from django.db.models import fields
+from django.db.models.base import Model
+from django.db.models.fields import files
+from django.forms.models import ModelForm
 from django.http import request
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.views import View
-import pprint
+import pprint,os
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 # from .forms import  *
-import bcrypt
+import bcrypt, random
 from django import forms
 import datetime
 from ckeditor.widgets import CKEditorWidget
 from django.contrib.auth import authenticate
 from django.contrib import messages
-from cemarapapua.settings import SESI_ADMIN
+from cemarapapua.settings import SESI_ADMIN,BASE_DIR
 
-from global_var.global_var import Security, my_login_checking
+from global_var.global_var import Security, my_login_checking,dropbox_,upload_file
 
 
 
@@ -156,6 +160,39 @@ class UserForm_edit(forms.ModelForm):
     full_name = forms.CharField(label='subject', widget=forms.TextInput(attrs={'class': "form-control"}))
     level_user = forms.ChoiceField(widget=forms.Select(attrs={'class':'form-control'}), choices=level_user)
 
+
+class UserProfile_log(View):
+    def get(self,request,userid):
+        userProfil_dt = Masteruser.objects.get(user_id = userid)
+        form = EditProfilUser()
+        profil_dt = {
+            "view_profile":userProfil_dt,
+            "form":form,
+        }
+        return render (request, 'admin/profil_user.html', profil_dt)
+
+class EditProfilUser(forms.ModelForm):
+    class Meta:
+        model = Masteruser
+        fields = ['username','full_name','password']
+    username = forms.CharField(label='subject', widget=forms.TextInput(attrs={'class': "form-control"}))
+    full_name = forms.CharField(label='subject', widget=forms.TextInput(attrs={'class': "form-control"}))
+    password = forms.CharField(label='subject', widget=forms.PasswordInput(attrs={'class': "form-control"})) 
+    
+class Proses_updateProfil(View):
+    def post(self, request, userid):
+        formeditprofil =  EditProfilUser(request.POST)
+        if formeditprofil.is_valid():
+            getPasswordField = formeditprofil.cleaned_data.get('password')
+            hashed = bcrypt.hashpw(getPasswordField.encode('utf-8'), bcrypt.gensalt())
+            a = formeditprofil.save(commit=False)
+            a.password = hashed.decode('utf-8')
+            profil_dt = Masteruser.objects.get(user_id = userid)
+            profil_dt.username = formeditprofil.cleaned_data.get('username')
+            profil_dt.full_name =formeditprofil.cleaned_data.get('full_name')
+            return redirect('cemarapapua_admin:userprofile',userid)
+        return redirect('cemarapapua_admin:userprofile',userid)
+
 class ProsesEditUser(View):
     def post(self, request, userid):
         formEditUser = UserForm_edit(request.POST)
@@ -241,6 +278,7 @@ class DeleteCategory(View):
 class Posts(View):
     def get(self, request):
         mPosts = Postsberita.objects.all().order_by('posts_id')
+        
         dataPostsNews = {
             "ViewPostNews" : mPosts,
             #  "form":form,
@@ -251,8 +289,7 @@ class PostsFrom_add(forms.ModelForm):
     
     class Meta:
         model    = Postsberita
-        fields   = ['posts_date','user_id','category_id','menu_id','posts_title','posts_desc','posts_img','posts_page_view','posts_keyword'] 
-    posts_date    =   forms.DateField(initial=datetime.date.today,widget = forms.HiddenInput(), required = False)
+        fields   = ['category_id','posts_title','posts_desc','posts_img','posts_keyword'] 
     posts_title   =   forms.CharField(label='posts_title', widget=forms.TextInput(attrs={'class': "form-control"}))
     posts_desc    =   forms.CharField(widget=CKEditorWidget())
     posts_img     =   forms.FileField()
@@ -262,6 +299,7 @@ class PostsFrom_add(forms.ModelForm):
 class AddPostBerita(View):
     def get(self, request):
         form = PostsFrom_add()
+        
         AddPosts = { 
             "form"  :   form
         }
@@ -269,13 +307,32 @@ class AddPostBerita(View):
 
 class Proses_addBerita(View):
     def post(self,request):
-        formAddBerita = PostsFrom_add(request.POST)
+        formAddBerita = PostsFrom_add(request.POST,request.FILES)
         if formAddBerita.is_valid():
-            print('blablabla')
-            formAddBerita.save()
+            upload = request.FILES.get('posts_img')
+
+            a = formAddBerita.save(commit=False)
+            a.user_id = Masteruser.objects.get(user_id = 1)
+            dbx_ = dropbox_()
+            c_upload = upload_file()
+            check_filename = Postsberita.objects.filter(posts_img = upload.name).exists()
+            if check_filename:
+                name_file = str(random.randint(0, 10000))+'_'+upload.name
+            else:
+                name_file = upload.name
+            l_name, s_name = c_upload.handle_uploaded_file(upload, name_file)
+            
+            
+            with open(l_name, 'rb') as f:
+                data_ = f.read()
+            upload_stat = dbx_.upload(data_,filename=name_file)
+            
+            if upload_stat:
+                os.remove(l_name)
+                a.posts_img = s_name
+                formAddBerita.save()
             return redirect('cemarapapua_admin:postsnews')
         return redirect('cemarapapua_admin:postsnews')
-
 # delete post berita
 class DeletePosts(View):
     def get(self, request, pk):
@@ -293,9 +350,72 @@ class DetailPosts(View):
         mDetailPosts = Postsberita.objects.filter(posts_id = pk)
         dataPostsNews = {
             "ViewDetailPostNews" : mDetailPosts,
-            
         }
         return render(request,'admin/detail_postsnews.html',dataPostsNews)
+# edit posting berita
+class ViewEditPosts(View):
+    def get(self, request, postsid):
+        mDetailPosts = Postsberita.objects.get(posts_id = postsid)
+        form = PostsForm_edit(initial={
+            'posts_title':mDetailPosts.posts_title,
+            'posts_desc' :mDetailPosts.posts_desc,
+            'posts_img'  :mDetailPosts.posts_img,
+            'posts_keyword': mDetailPosts.posts_keyword,
+            'category_id': mDetailPosts.category_id})
+        idpk = postsid
+        dataPostsNews = {
+            "form"  :   form,
+            "IDPOSTS" : idpk,
+        }
+        return render(request,'admin/editposts.html',dataPostsNews)
+
+class PostsForm_edit(forms.ModelForm):
+    class Meta:
+        model = Postsberita
+        fields = ['posts_title','posts_desc','category_id','posts_img','posts_keyword']
+    posts_title   =   forms.CharField(label='posts_title', widget=forms.TextInput(attrs={'class': "form-control"}))
+    posts_desc    =   forms.CharField(widget=CKEditorWidget())
+    posts_img     =   forms.FileField()
+    posts_keyword =   forms.CharField(label='posts_desc', widget=forms.TextInput(attrs={'class': "form-control"}))
+    category_id   =   forms.ModelChoiceField(queryset=Mastercategory.objects.all(),empty_label='Pilih Kategori',widget=forms.Select(attrs={'class':'form-control'}))
+
+class ProsesEditPosts(View):
+    def post(self, request, postsid):
+        formeditPosts = PostsForm_edit(request.POST)
+        if formeditPosts.is_valid():
+            upload = request.FILES.get('posts_img')
+
+            a = PostsForm_edit.save(commit=False)
+            a.user_id = Masteruser.objects.get(user_id = 1)
+            dbx_ = dropbox_()
+            c_upload = upload_file()
+            check_filename = Postsberita.objects.filter(posts_img = upload.name).exists()
+            if check_filename:
+                name_file = str(random.randint(0, 10000))+'_'+upload.name
+            else:
+                name_file = upload.name
+            l_name, s_name = c_upload.handle_uploaded_file(upload, name_file)
+            
+            
+            with open(l_name, 'rb') as f:
+                data_ = f.read()
+            upload_stat = dbx_.upload(data_,filename=name_file)
+            
+            if upload_stat:
+                os.remove(l_name)
+                a.posts_img = s_name
+                PostsForm_edit.save()
+                post_dt = Postsberita.objects.get(postsid)
+                post_dt.posts_title = formeditPosts.cleaned_data.get('posts_title')
+                post_dt.posts_desc = formeditPosts.cleaned_data.get('posts_desc')
+                post_dt.posts_img = formeditPosts.cleaned_data.get('posts_img')
+                post_dt.posts_keyword = formeditPosts.cleaned_data.get('posts_keyword')
+                post_dt.category_id = formeditPosts.cleaned_data.get('category_id')
+                post_dt.save()
+            return redirect('cemarapapua_admin:postsnews')
+        return redirect('cemarapapua_admin:postsnews')
+
+
 
 class PostsGereja(View):
     def get(self, request):
@@ -306,7 +426,27 @@ class PostsGereja(View):
                     
                 }
         return render(request,'admin/listGereja.html',dataVkGereja)
+# delete Postingan Gereja
+class DeleteKegiatanGereja(View):
+    def get(self, request, pk):
+        try:
+            qryUpdateKegiatangereja = Postsberita.objects.get(posts_id=pk)
+            qryUpdateKegiatangereja.posts_status = 'draft'
+            qryUpdateKegiatangereja.save()
 
+        except Postsberita.DoesNotExist:
+            return redirect('cemarapapua_admin:kegiatanGereja')
+
+        return redirect('cemarapapua_admin:kegiatanGereja')
+#detail postingan kegiatan gereja
+class DetailPostsGereja(View):
+    def get(self, request, pk):
+        mDetailPosts = Postsberita.objects.filter(posts_id = pk)
+        dataPostsNews = {
+            "ViewDetailPostNews" : mDetailPosts,
+            
+        }
+        return render(request,'admin/detail_kegiatanGereja.html',dataPostsNews)
 class PostsFirtu(View):
     def get(self, request):
         mDatafirtu = Postsfirmantuhan.objects.all().order_by('firtu_id')
@@ -317,6 +457,72 @@ class PostsFirtu(View):
                     
                 }
         return render(request,'admin/listfirtu.html',dataVkGereja)
+# tambah firtu
+class FirtuFrom_add(forms.ModelForm):
+    
+    class Meta:
+        model     =   Postsfirmantuhan
+        fields    =   ['firtu_title','firtu_desc','firtu_img'] 
+    firtu_title   =   forms.CharField(label='firtu_title', widget=forms.TextInput(attrs={'class': "form-control"}))
+    firtu_desc    =   forms.CharField(widget=CKEditorWidget())
+    firtu_img     =   forms.FileField()
+
+class AddPostFirtu(View):
+    def get(self, request):
+        form = FirtuFrom_add()
+        
+        AddPosts = { 
+            "form"  :   form
+        }
+        return render(request,'admin/addFirtu.html',AddPosts)
+
+class Proses_addFirtu(View):
+    def post(self,request):
+        formAddFirtu = FirtuFrom_add(request.POST,request.FILES)
+        if formAddFirtu.is_valid():
+            upload = request.FILES.get('firtu_img')
+
+            a = formAddFirtu.save(commit=False)
+            a.user_id = Masteruser.objects.get(user_id = 1)
+            dbx_ = dropbox_()
+            c_upload = upload_file()
+            check_filename = Postsfirmantuhan.objects.filter(firtu_img = upload.name).exists()
+            if check_filename:
+                name_file = str(random.randint(0, 10000))+'_'+upload.name
+            else:
+                name_file = upload.name
+            l_name, s_name = c_upload.handle_uploaded_file(upload, name_file)
+            
+            with open(l_name, 'rb') as f:
+                data_ = f.read()
+            upload_stat = dbx_.upload(data_,filename=name_file)
+            
+            if upload_stat:
+                os.remove(l_name)
+                a.firtu_img = s_name
+                formAddFirtu.save()
+            return redirect('cemarapapua_admin:firtu')
+        return redirect('cemarapapua_admin:firtu')
+# delete firman tuhan
+class Deletefirtu(View):
+    def get(self, request, pk):
+        try:
+            qryUpdatefirtu = Postsfirmantuhan.objects.get(firtu_id=pk)
+            qryUpdatefirtu.firtu_status = 'N'
+            qryUpdatefirtu.save()
+
+        except Postsfirmantuhan.DoesNotExist:
+            return redirect('cemarapapua_admin:firtu')
+        return redirect('cemarapapua_admin:firtu')
+# Detail Firman Tuhan
+class DetailFirmanTuhan(View):
+    def get(self, request, pk):
+        mDetailFirtu = Postsfirmantuhan.objects.filter(firtu_id = pk)
+        dataFirtu = {
+            "ViewDetailFirtu" : mDetailFirtu,
+            
+        }
+        return render(request,'admin/detail_firtu.html',dataFirtu)
 
 class PostsOpini(View):
     def get(self, request):
@@ -329,6 +535,149 @@ class PostsOpini(View):
                 }
         return render(request,'admin/listopini.html',dataVkGereja)
 
+
+class Album(View):
+     def get(self, request):
+        form       = FormAdd_album()
+        mDataAlbum = AlbumPosts.objects.all()
+        data_album = {
+                "Viewalbum" : mDataAlbum,
+                "form"      : form
+            }
+        return render(request,'admin/album.html',data_album)
+# tambah form album
+class FormAdd_album(forms.ModelForm):
+    class Meta:
+        model  = AlbumPosts
+        fields = ['album_name']
+    album_name = forms.CharField(label='Nama Album', widget=forms.TextInput(attrs={'class':"form-control"}))
+# proses simpan album
+class prosesAddAlbum(View):
+    def post(self,request):
+        formAddAlbum = FormAdd_album(request.POST)
+        if formAddAlbum.is_valid():
+            formAddAlbum.save()
+            return redirect('cemarapapua_admin:album')
+        return redirect('cemarapapua_admin:addalbum')
+        
+# Proses Delete Album
+class DeleteAlbum(View):
+    def get(self, request, albumid):
+        try:
+            queryUpdateAlbum = AlbumPosts.objects.get(album_id=albumid)
+            queryUpdateAlbum.album_status = 'N'
+            queryUpdateAlbum.save()
+        except AlbumPosts.DoesNotExist:
+            return redirect('cemarapapua_admin:album')
+        return redirect('cemarapapua_admin:album')
+# Form update album
+class FormUpdate_album(forms.ModelForm):
+    class Meta:
+        model  = AlbumPosts
+        fields = ['album_name']
+    album_name = forms.CharField(label='Album Name', widget=forms.TextInput(attrs={'class':'form-control'}))
+# proses update album
+class ProsesUpdateAlbum(View):
+    def post(self, request, albumid):
+        formsupdateAlbum = FormUpdate_album(request.POST)
+        if formsupdateAlbum.is_valid():
+            album_data = AlbumPosts.objects.get(album_id= albumid)
+            album_data.album_name = formsupdateAlbum.cleaned_data.get('album_name')
+            album_data.album_status='Y'
+            album_data.save()        
+        return redirect('cemarapapua_admin:album')
+# view data gallery
+class viewgallery(View):
+    def get(self, request):
+        mDataGallery = Gallery.objects.all()
+        data_gallery = {
+            "viewGallery": mDataGallery,
+        }
+        return render(request,'admin/gallery.html',data_gallery)   
+
+# delete gallery data
+class DeleteGallery(View):
+    def get(self, request, galleryID):
+        try:
+            qryUpdateGallery = Gallery.objects.get(gallery_id = galleryID)
+            qryUpdateGallery.gallery_log = 'N'
+            qryUpdateGallery.save()
+        except Gallery.DoesNotExist:
+            return redirect('cemarapapua_admin:gallery')
+        return redirect('cemarapapua_admin:gallery')
+# insert data gallery
+class AddGallery_From(forms.ModelForm):
+    class Meta:
+       model  = Gallery
+       fields = ['gallery_name','gallery_img','gallery_status','gallery_link','album_id']
+    gallery_status = [
+            ('F', 'Foto'),
+            ('V', 'Video'),
+        ]
+    gallery_name    = forms.CharField(label='firtu_title', widget=forms.TextInput(attrs={'class': "form-control"}))
+    gallery_img     = forms.FileField()
+    gallery_status  = forms.ChoiceField(widget=forms.Select(attrs={'class':'form-control'}), choices=gallery_status)
+    gallery_link    = forms.CharField(label='firtu_title', widget=forms.TextInput(attrs={'class': "form-control"}))
+    album_id        = forms.ModelChoiceField(queryset=AlbumPosts.objects.all(),empty_label='Pilih Album',widget=forms.Select(attrs={'class':'form-control'}))
+#form tambah gallery
+class AddPosts_gallery(View):
+    def get(self, request):
+        form = AddGallery_From()
+        viewAdd_gallery = {
+            "form":form
+        }  
+        return render(request,'admin/addGallery.html',viewAdd_gallery)   
+# Proses simpan gallery
+class Proses_addGallery(View):
+    def post(self,request):
+        formAddgaleri = AddGallery_From(request.POST,request.FILES)
+        if formAddgaleri.is_valid():
+            upload = request.FILES.get('gallery_img')
+
+            a = formAddgaleri.save(commit=False)
+            a.user_id = Masteruser.objects.get(user_id = 1)
+            dbx_ = dropbox_()
+            c_upload = upload_file()
+            check_filename = Gallery.objects.filter(gallery_img = upload.name).exists()
+            if check_filename:
+                name_file = str(random.randint(0, 10000))+'_'+upload.name
+            else:
+                name_file = upload.name
+            l_name, s_name = c_upload.handle_uploaded_file(upload, name_file)
+            
+            with open(l_name, 'rb') as f:
+                data_ = f.read()
+            upload_stat = dbx_.upload(data_,filename=name_file)
+            
+            if upload_stat:
+                os.remove(l_name)
+                a.firtu_img = s_name
+                formAddgaleri.save()
+            return redirect('cemarapapua_admin:gallery')
+        return redirect('cemarapapua_admin:gallery')
+# view komentar pengunjung
+
+class ViewCommentarVisitor(View):
+    def get(self, request):
+        data_comment = CommetarPengunjung.objects.all()
+        view_com = {
+            "V_comVisitor" : data_comment ,
+            
+
+        }
+        return render(request, 'admin/commentar_pengunjung.html', view_com)
+
+# hapus komentar
+class BalasComentar(View):
+    def get(self, request, pk):
+        try:
+            qryUpdateCom = CommetarPengunjung.objects.get(commentar_id = pk)
+            qryUpdateCom.com_status = 'N'
+            qryUpdateCom.save()
+        except CommetarPengunjung.DoesNotExist:
+            return redirect('cemarapapua_admin:komentarpengujung')
+        return redirect('cemarapapua_admin:komentarpengujung')
+# login admin
 class Login(View):
     @my_login_checking
     def get(self, request):
@@ -354,10 +703,13 @@ class Login(View):
                     data_u = Masteruser.objects.get(username = username)
                     if d_p.pwd_macthing(data_u.password):
 
-                        request.session['next_admin'] = 'jancuk'
+                        request.session['next_admin'] = 'jangansaru'
                         request.session[SESI_ADMIN] = data_u.username
 
+                        request.session['uname_admin'] = data_u.username
                         request.session['fullname_admin'] = data_u.full_name
+                        request.session['status_admin'] = data_u.user_status
+                        request.session['level_admin'] = data_u.level_user
                         request.session['uid_client'] = data_u.user_id
                         
                         messages.success(request, 'Selamat Datang, {}'.format(data_u.full_name.upper()))
@@ -375,6 +727,9 @@ class Login(View):
             messages.warning(request, 'Mohon Isi Form Dengan Benar !')
 
         return redirect('cemarapapua_admin:login')
+
+
+
 
 class UserForm_login(forms.ModelForm):
     class Meta:

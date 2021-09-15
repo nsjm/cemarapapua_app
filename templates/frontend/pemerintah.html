@@ -20,13 +20,13 @@
                         </div>
 
                         <div class="blog_details">
-                            <a class="d-inline-block" href="detail_news.html">
+                            <a class="d-inline-block" href="{% url 'cemarapapua_front:detailposts' listPemerintah.posts_id %}">
                                 <h2>{{ listPemerintah.posts_title }}</h2>
                             </a>
                              <!-- {% autoescape off %} -->
                                 {{ listPemerintah.posts_desc|slice:":255"}}
                              <!-- {% endautoescape %} -->
-                             <a href="detail.html" style="background-color:rgb(9, 236, 122) ; padding: 5px; border-radius: 5px;"><i><b>Baca Selanjutnya</b> </i></a>
+                             <a href="{% url 'cemarapapua_front:detailposts' listPemerintah.posts_id %}" style="background-color:rgb(9, 236, 122) ; padding: 5px; border-radius: 5px;"><i><b>Baca Selanjutnya</b> </i></a>
 
                              <p>
                                 Keyword:<span style="background-color:#f1efd7; border-radius: 2px;"><i> {{ listPemerintah.posts_keyword }}</i></span>
@@ -97,7 +97,7 @@
                                                     </div>
                                                     <div class="weekly2-caption">
                                                         <span style="background-color: #14f8e9; padding: 3px; border-radius: 2px; font-size: small;"><b>{{listBeritaTerkait.category_id.categorys}}</b></span>
-                                                        <h4><a href="#">{{listBeritaTerkait.posts_title}}</a></h4>
+                                                        <h4><a href="{% url 'cemarapapua_front:detailposts' listBeritaTerkait.posts_id %}">{{listBeritaTerkait.posts_title}}</a></h4>
                                                         
                                                     </div>
                                                 </div> 
@@ -153,7 +153,7 @@
                                 <div class="media post_item">
                                     <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px">
                                     <div class="media-body">
-                                        <a href="detail_news.html">
+                                        <a href="{% url 'cemarapapua_front:detailposts' dataTerpopuler.posts_id %}">
                                             <h3>{{ dataTerpopuler.posts_title }}</h3>
                                         </a>
                                         <p>{{ dataTerpopuler.posts_date }}</p>

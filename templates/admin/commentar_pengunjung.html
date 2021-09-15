@@ -1,0 +1,76 @@
+{% extends "admin/index.html" %}
+{% load static %}
+{% block content %}
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="page-title"><span class="fa fa-comments"></span> Komentar Pengunjung</h3>
+            <div class="d-inline-block align-items-center">
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="icon-Settings-2"></i></a></li>
+                        <li class="breadcrumb-item" aria-current="page">Komentar</li>
+                        <li class="breadcrumb-item active" aria-current="page">Komentar Pengunjung</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="padding-top: 10px;">
+<div class="col-12">
+    <div class="box">
+       <!-- /.box-header -->
+       <div class="box-body">
+           <div class="table-responsive">
+             <table id="example1" class="table table-bordered table-striped" alt="test">
+               <thead>
+                   <tr>
+                       <th>No</th>
+                       <th>Tanggal</th>
+                       <th>Berita</th>
+                       <th>FullName</th>
+                       <th>Email</th>
+                       <th>Pesan</th>
+                       <th>Status</th>
+                       <th>Aksi</th>
+                   </tr>
+               </thead>
+               <tbody>
+                {% for comment_p in V_comVisitor %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ comment_p.com_date }}</td>
+                    <td>{{ comment_p.full_name }}</td>
+                    <td>{{ comment_p.email }}</td>
+                    <td>{{ comment_p.pesan }}</td>
+                    <td>{{ comment_p.posts_id.posts_title }}</td>
+                    
+                    <td>
+                        <center>    
+                            {% if comment_p.com_status == 'Y' %}
+                            <span class="badge badge-primary pull-up"><span class="fa fa-check"></span> Aktif</span>
+                            {% else %}
+                            <span class="badge badge-warning pull-up"><span class="fa fa-times"></span> Tidak Aktif</span>
+                            {% endif %}
+                        </center>
+                    </td>
+                    <td style="text-align: center;">
+                        <a href="{% url 'cemarapapua_admin:delkomentar' comment_p.commentar_id %}" class="btn btn-sm btn-outline btn-danger pull-up " onclick="return confirm('Anda yakin mau menghapus Nama Album ini?');">
+                        <span class="fa fa-trash" title="Hapus"></span></a>
+                        <a href="#" class="btn btn-sm btn-outline btn-success pull-up "><span class="fa fa-reply"></span></a>
+                    </td>
+
+            </tr>
+            {% endfor %}
+               </tbody>
+             </table>
+           </div>
+       </div>
+       <!-- /.box-body -->
+     </div>
+     <!-- /.box -->        
+   </div>
+</div>
+
+{%  endblock %}

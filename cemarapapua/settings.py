@@ -93,7 +93,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
 
@@ -130,7 +130,7 @@ PASSWORD_HASHERS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-id'
 
 TIME_ZONE = 'Asia/Bangkok'
 
@@ -138,7 +138,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -151,6 +151,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "cemarapapua_frontend/assets"),
     
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media_root")
 
 CKEDITOR_CONFIGS = {
     'default': {

@@ -17,7 +17,7 @@
                 </nav>
             </div>
         </div>
-        <button class="waves-effect waves-light btn mb-5 bg-gradient-primary pull-up"><span class="fa fa-plus"></span> Tambah </button>
+        <a class="pull-up btn btn-sm btn-outline btn-primary" href="{% url 'cemarapapua_admin:addFirtu' %}"><span class="fa fa-plus"></span> Tambah Firman Tuhan</a>
     </div>
 </div>
 <div class="row" style="padding-top: 10px;">
@@ -34,6 +34,7 @@
                        <th>No</th>
                        <th>Judul</th>
                        <th>Tanggal</th>
+                       <th>Status</th>
                        <th style="width: 15%;">Aksi</th>
                    </tr>
                </thead>
@@ -43,9 +44,25 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ listFirtu.firtu_title }}</td>
                         <td>{{ listFirtu.firtu_date }}</td>
+                        <td>
+                            <center>
+                                {% if listFirtu.firtu_status == 'Y' %}
+                                <span class="badge badge-primary"><span class="fa fa-check"></span> Aktif</span>
+                                {% else %}
+                                <span class="badge badge-warning"><span class="fa fa-times"></span> Tidak Aktif</span>
+                                {% endif %}
+                            </center>  
+                        </td>
+                        
                         <td style="text-align: center;">
-                            <button class="pull-up btn-sm btn-outline btn-info"><span class="fa fa-edit" title="Edit"></span></button>
-                            <button class="pull-up btn-sm btn-outline btn-danger"><span class="fa fa-trash" title="Hapus"></span></button>
+                            <a href="" class="btn btn-sm btn-outline btn-info pull-up ">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                            <a href="{% url 'cemarapapua_admin:detailfirtu' listFirtu.firtu_id %}" class="btn btn-sm btn-outline btn-primary pull-up ">
+                                <span class="fa fa-eye"></span>
+                            </a>
+                            <a class="btn btn-sm btn-outline btn-danger pull-up" href="{% url 'cemarapapua_admin:delfirtu' listFirtu.firtu_id %}" onclick="return confirm('Anda yakin mau menghapus Firman Tuhan ini?');">
+                                <span class="fa fa-times" title="Hapus"></span></a>
                         </td>
                    </tr>
                 

@@ -273,3 +273,20 @@ class Kesehatan(View):
         }
 
         return render(request,'frontend/kesehatan.html', dataViewberitakesehatan)
+class Detail_post(View):
+    def get(self, request, pk):
+        mDetailPosts = Postsberitaslider.objects.filter(posts_id = pk)
+        dataGroupByKategori     = Mastercategory.objects.all().annotate(
+                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberitaslider.objects.order_by('-posts_id')[:5]
+        datafituview            = Firtu.objects.all().order_by('-firtu_id')[:5]
+        dataPostsNews = {
+            "ViewDetailPostNews" : mDetailPosts,
+            "dataJumlahKategori"         :  dataGroupByKategori,
+            "databeritaTerpopulerView"  : databeritaTerpopuler,
+            "beritaTerkait"             : databeritaterkait, 
+            "dataFirtuView"             : datafituview,
+            
+        }
+        return render(request,'frontend/detail_posts.html',dataPostsNews)

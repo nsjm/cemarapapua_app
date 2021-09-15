@@ -35,6 +35,8 @@ urlpatterns = [
     path('pendidikan/', Pendidikan.as_view(),name='pendidikan'),
     path('ekonomi/', Ekonomi.as_view(),name='ekonomi'),
     path('kesehatan/', Kesehatan.as_view(),name='kesehatan'),
+    path('pemerintah/Detail_post/<int:pk>/', Detail_post.as_view(), name='detailposts'),
+    
   
 
 ]

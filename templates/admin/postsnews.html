@@ -5,6 +5,7 @@
     <div class="d-flex align-items-center" >
         <div class="mr-auto">
             <h3 class="page-title"><span class="fa fa-book"></span> Data Posting Berita</h3>
+            <img src="https://www.dropbox.com/sh/93a5jlsv0snb7by/AAAZheKoMK7d1PRMP6awfMbFa?dl=1" alt="" class="img-responsive">
             <div class="d-inline-block align-items-center">
                 <nav>
                     <ol class="breadcrumb">
@@ -29,7 +30,7 @@
                <thead>
                    <tr>
                        <th>No</th>
-                       <th>Judul</th>
+                       <th>Judul </th>
                        <th>Tanggal</th>
                        <th>Kategori</th>
                        <th>Status</th>
@@ -47,7 +48,10 @@
                        <td><span class="badge badge-info"><span class="fa fa-check-circle-o"></span> {{ listPostsNews.posts_status.upper }}</span></td>
                        <td><span class="badge badge-success"><span class="fa fa-user-circle-o"></span> {{ listPostsNews.user_id.full_name.title }}</span></td>
                        <td style="text-align: center;">
-                        <a href="{% url 'cemarapapua_admin:detailpostsberita' listPostsNews.posts_id %}" class="btn btn-sm btn-outline btn-danger pull-up ">
+                        <a href="{% url 'cemarapapua_admin:viewupdateposts' listPostsNews.posts_id %}" class="btn btn-sm btn-outline btn-info pull-up ">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                        <a href="{% url 'cemarapapua_admin:detailpostsberita' listPostsNews.posts_id %}" class="btn btn-sm btn-outline btn-primary pull-up ">
                             <span class="fa fa-eye"></span></a>
                         <a href="{% url 'cemarapapua_admin:delpostsberita' listPostsNews.posts_id %}" class="btn btn-sm btn-outline btn-danger pull-up " onclick="return confirm('Anda yakin mau menghapus berita ini?');">
                                 <span class="fa fa-times"></span></a>

@@ -17,14 +17,13 @@
                 </nav>
             </div>
         </div>
-        <button class="waves-effect waves-light btn mb-5 bg-gradient-primary pull-up"><span class="fa fa-plus"></span> Tambah</button>
+        <a class="pull-up btn btn-sm btn-outline btn-primary" href="{% url 'cemarapapua_admin:addPosts' %}"><span class="fa fa-plus"></span> Tambah Kegiatan</a>
     </div>
 </div>
 <div class="row" style="padding-top: 10px;">
 <div class="col-12">
 
     <div class="box">
-       
        <!-- /.box-header -->
        <div class="box-body">
            <div class="table-responsive">
@@ -52,8 +51,14 @@
                         <td><span class="badge badge-info"><span class="fa fa-check-circle-o"></span> {{ listKGereja.posts_status }}</span></td>
                         <td><span class="badge badge-success"><span class="fa fa-user-circle-o"></span> {{ listKGereja.user_id.full_name }}</span></td>
                         <td style="text-align: center;">
-                            <button class="pull-up btn-sm btn-outline btn-info"><span class="fa fa-edit" title="Edit"></span></button>
-                            <button class="pull-up btn-sm btn-outline btn-danger"><span class="fa fa-trash" title="Hapus"></span></button>
+                            <a href="{% url 'cemarapapua_admin:viewupdateposts' listKGereja.posts_id %}" class="btn btn-sm btn-outline btn-info pull-up ">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                            <a href="{% url 'cemarapapua_admin:detailpostsgereja' listKGereja.posts_id %}" class="btn btn-sm btn-outline btn-primary pull-up ">
+                                <span class="fa fa-eye"></span></a>
+                            <a class="btn btn-sm btn-outline btn-danger pull-up" href="{% url 'cemarapapua_admin:delkeggereja' listKGereja.posts_id %}" onclick="return confirm('Anda yakin mau menghapus berita ini?');">
+                                <span class="fa fa-times" title="Hapus"></span></a>
+                            
                         </td>
                    </tr>
                 

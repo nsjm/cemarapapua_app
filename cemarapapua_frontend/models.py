@@ -87,7 +87,6 @@ class Postsberitaslider(models.Model):
     posts_desc      = models.TextField(null=False,blank=False)
     posts_img       = models.TextField(null=False,blank=False)
     category_id     = models.ForeignKey(Mastercategory,on_delete=models.CASCADE,db_column='category_id')
-    menu_id         = models.IntegerField(null=False,blank=False)
     posts_status    = models.CharField(max_length=20,blank=False,null=False, default='publish')
     posts_page_view = models.IntegerField(null=False,blank=False)
     posts_keyword   = models.TextField(null=False,blank=False)
@@ -95,5 +94,6 @@ class Postsberitaslider(models.Model):
     class Meta :
         managed = False
         db_table = 'public\".\"posts'
+
 
               

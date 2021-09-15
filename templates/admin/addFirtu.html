@@ -17,43 +17,32 @@
                 </nav>
             </div>
         </div>
-        <a class="pull-up btn btn-sm btn-outline btn-primary" href="{% url 'cemarapapua_admin:postsnews' %}"><span class="fa fa-list"></span> Berita</a>
+        <a class="pull-up btn btn-sm btn-outline btn-primary" href="{% url 'cemarapapua_admin:firtu' %}"><span class="fa fa-list"></span> Firman Tuhan</a>
     </div>
 </div>
 <div class="row" style="padding-top: 10px;">
 <div class="col-12">
     <div class="box">
        <div class="box-body">
-           <form action="{% url 'cemarapapua_admin:savePosts' %}" method="POST" enctype="multipart/form-data">
+           <form action="{% url 'cemarapapua_admin:saveFirtu' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
                 <div class="form-group row">
                     <div class="col-md-12">
-                        <span class="form-text text-muted">Judul Berita</span>
-                        {{form.posts_title}}
+                        <span class="form-text text-muted">Judul Firman Tuhan</span>
+                        {{form.firtu_title}}
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-12">
-                        <span class="form-text text-muted">Tulis Berita Disini</span>
+                        <span class="form-text text-muted">Tulis Isi Firman Tuhan Disini</span>
                         {{ form.media }}
-                        {{form.posts_desc}} 
+                        {{form.firtu_desc}} 
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-6">
                         <span class="form-text text-muted">Upload Thumbnail</span>
-                        {{form.posts_img}}
-                        
-                    </div>
-                    <div class="col-md-6">
-                        <span class="form-text text-muted">Pilih Kategori Berita</span>
-                        {{form.category_id}}
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <span class="form-text text-muted">SEO (Keywords)</span>
-                        {{form.posts_keyword}}
+                        {{form.firtu_img}}
                     </div>
                     <div class="col-md-6" style="padding: 20px;">
                         <button type="submit" class="btn btn-primary btn-block"><span class="fa fa-save"></span> Simpan</button>
