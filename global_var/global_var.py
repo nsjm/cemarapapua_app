@@ -72,6 +72,6 @@ class dropbox_:
 class upload_file:
     def handle_uploaded_file(self, file_ ,filename=''):
         fss = FileSystemStorage(location = MEDIA_ROOT)
-        file = fss.save(filename, file_)
+        file = fss.save(filename.replace(' ',''), file_)
         file_url = fss.url(file)
         return os.path.join(MEDIA_ROOT, file_url), file_url
