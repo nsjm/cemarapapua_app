@@ -9,7 +9,7 @@
         {% for TerpopulerOne in dataterpopulerTop %}
         <div class="most-recent mb-40">
             <div class="most-recent-img">
-                <img src="{% static 'frontend/img/news_/logistik.jpg' %}" alt="">
+                <img src="{% static 'frontend/img/news_/' %}{{TerpopulerOne.posts_img}}" alt="">
                 <div class="most-recent-cap">
                     <span class="bgbeg">Terpopuler </span>
                     <span class="bgbeg" style="background-color: #42cd60;">{{ TerpopulerOne.category_id.categorys }} </span>

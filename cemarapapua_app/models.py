@@ -4,6 +4,7 @@ from django.db.models.expressions import F
 from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
 from django.forms.utils import flatatt
+from django.db.models import Q
 # Create your models here.
 class Setting_aplikasi(models.Model):
     setting_id                  = models.IntegerField(null=False,primary_key=True)

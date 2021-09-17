@@ -1,0 +1,5 @@
+database_name = 'cemarapapua_db'
+database_user = 'postgres'
+database_pass = 'postgres'
+database_host = '127.0.0.1'
+database_port = '5433'

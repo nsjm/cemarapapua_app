@@ -1,72 +1,71 @@
 {% load static %}
 {% block content %}
 <header>
-    <!-- Header Start -->
-    <div class="header-area">
-        <div class="main-header">
-            <div class="header-top black-bg d-none d-sm-block" style="background-color: #353730; padding: 0px 0px;">
+     <!-- Header Start -->
+     <div class="header-area">
+        <div class="main-header ">
+            <div class="header-top black-bg d-none d-sm-block">
                 <div class="container">
-                    <!-- <div class="col-xl-12"> -->
+                    <div class="col-xl-12">
                         <div class="row d-flex justify-content-between align-items-center">
-                            <div class="col-lg-10">
-                                {% for breakingnews in dataterpopulerTop %}
+                            <div class="header-info-left">
+                                <ul>     
+                                    <li class="title"><span class="flaticon-energy"></span> trending-title</li>
+                                    {% for breakingnews in dataterpopulerTop %}
                                         <li> <a href="#"><marquee width = "100%" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"><span class="flaticon-energy"></span><span style="font-size: small;">{{ breakingnews.posts_title }}</span></marquee></a> </li>
                                     {% endfor %}
-                            </div>
-                            <div class="col-lg-2">
-                                <li><span class="flaticon-phone"></span> <label style="font-size: small; color: white;">cemarapapuanews@gmail.com</label></li>
-                            </div>
-                            <!-- <div class="header-info-left" style="width: 500px;">
-                                <ul>  
-
-                                    {% for breakingnews in dataterpopulerTop %}
-                                        <li> <a href="#"><marquee width = "100%" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"><span class="flaticon-energy"></span>{{ breakingnews.posts_title }}</marquee></a> </li>
-                                    {% endfor %}
-                                
                                 </ul>
-                            </div> -->
-                            <!-- <div class="header-info-right">
+                            </div>
+                            <div class="header-info-right">
                                 <ul class="header-date">
-                                    <li><span class="flaticon-calendar"></span> <label style="font-size: small;">+62 852-2886-3507</label></li>
+                                    <li><span class="flaticon-mail"></span> cemarapapuanews@gmail.com</li>
                                 </ul>
-                            </div> -->
+                            </div>
                         </div>
-                    <!-- </div> -->
+                    </div>
                 </div>
             </div>
-            <div class="header-bottom header-sticky" style="background-color: #146e42eb;">
-                
+            <div class="header-mid gray-bg">
                 <div class="container">
-                    <div class="sticy-logo-desk" style="width: 100px; position: absolute; padding-top: 13px; left: 30px; ">
-                        <img src="{% static 'frontend/img/logo/logo.png' %}" width="100px;">
+                    <div class="row d-flex align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
+                            <div class="logo">
+                                <a href="index.html"><img src="{% static 'frontend/img/logo/logo-1.png' %}" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-9">
+                            <div class="header-banner f-right ">
+                                <img src="assets/img/gallery/header_card.png" alt="">
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="header-bottom header-sticky">
+                <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-8 col-lg-8 col-md-12 header-flex">
                             <!-- sticky -->
-                            <div class="sticky-logo" style="width: 100px; padding-top: 100px;"></div>
+                            <div class="sticky-logo">
+                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                            </div>
                             <!-- Main-menu -->
                             <div class="main-menu d-none d-md-block">
-                                
-                                <nav>
-                                  
+                                <nav>                  
                                     <ul id="navigation">
-                                        {% for menus in menuheader %}
-                                            {% if menus.parent_id == 0 %}
-                                                <li><a href="{{menus.url}}"> {{ menus.menu }}</a>
-                                                    {% for submenu in menuheader %}
-                                                        {% if submenu.parent_id == menus.menu_id %}
-                                                        <ul class="submenu">
-                                                            {% for submenu in menuheader %}
-                                                                {% if submenu.parent_id != 0 and submenu.parent_id == menus.menu_id %}
-                                                                    <li><a href="{{submenu.url}}">{{submenu.menu}}</a></li>
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        </ul>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </li>
-                                            {% endif %}
-                                        {% endfor %}
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="about.html">about</a></li>
+                                        <li><a href="categori.html">Category</a></li>
+                                        <li><a href="latest_news.html">Latest News</a></li>
+                                        <li><a href="#">Pages</a>
+                                            <ul class="submenu">
+                                                <li><a href="blog.html">Blog</a></li>
+                                                <li><a href="blog_details.html">Blog Details</a></li>
+                                                <li><a href="elements.html">Element</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="contact.html">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -75,14 +74,15 @@
                             <div class="header-right f-right d-none d-lg-block">
                                 <!-- Heder social -->
                                 <ul class="header-social">    
-                                    <li><a href="https://www.facebook.com/Cemara-Papua-News-104549358598314"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="https://www.instagram.com/cemarapapuanews/"><i class="fab fa-instagram"></i></a></li>
-                                    <li> <a href="https://www.youtube.com/channel/UClOBcKJPoyJPRp6cAixHGjw"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a href="https://www.fb.com/sai4ull"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    <li> <a href="#"><i class="fab fa-youtube"></i></a></li>
                                 </ul>
                                 <!-- Search Nav -->
-                                <!-- <div class="nav-search search-switch">
+                                <div class="nav-search search-switch">
                                     <i class="fa fa-search"></i>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                         <!-- Mobile Menu -->

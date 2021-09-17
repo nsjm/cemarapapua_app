@@ -4,7 +4,7 @@ from typing import ValuesView
 from django.http import request
 from django.http.response import HttpResponse
 from django.views import View
-from cemarapapua_frontend.models import *
+from cemarapapua_app.models import *
 from django.db.models import Max
 from django.db.models import Count
 import requests
@@ -25,23 +25,23 @@ class Cemarapapua_front_index(View):
             }
         ]
         datamenuHome            = Mastermenu.objects.filter(level='F', status = 'aktif').order_by('menu_id')
-        dataCovid               = requests.get('https://api.kawalcorona.com/indonesia')
-        try:
-            godataCovid             = dataCovid.json()
-        except Exception as e:
-            pass
-        databeritaSlider            = Postsberitaslider.objects.all().order_by('-posts_date')[:5]
-        databeritaSlidertopone      = Postsberitaslider.objects.all().order_by('-posts_date','-posts_page_view')[:2]
-        databeritaUtama             = Postsberitaslider.objects.filter(category_id=11)
-        databeritaPercategory       = Postsberitaslider.objects.all().order_by('posts_id').reverse() 
+        # dataCovid               = requests.get('https://api.kawalcorona.com/indonesia')
+        # try:
+        #     godataCovid             = dataCovid.json()
+        # except Exception as e:
+        #     pass
+        databeritaSlider            = Postsberita.objects.all().order_by('-posts_date')[:5]
+        databeritaSlidertopone      = Postsberita.objects.all().order_by('-posts_date','-posts_page_view')[:2]
+        databeritaUtama             = Postsberita.objects.filter(category_id=11)
+        databeritaPercategory       = Postsberita.objects.all().order_by('posts_id').reverse() 
         dataGallery                 = Gallery.objects.all()
         dataMastercategry           = Mastercategory.objects.all().order_by('category_id')[:5]
-        # dataBeritaterbaru           = Postsberitaslider.objects.all().order_by('posts_id').reverse()[:5]
-        databeritaTerpopuler        = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaTerpopulerOne     = Postsberitaslider.objects.all().order_by('-posts_page_view')[:1]
-        datafituHome                = Firtu.objects.all().order_by('-firtu_id')[:5]
-        dataGerejaHome              = Postsberitaslider.objects.filter(category_id=2)[:5]
-        dataOpiniHome               = Postsberitaslider.objects.filter(category_id=14)[:5]
+        # dataBeritaterbaru           = Postsberita.objects.all().order_by('posts_id').reverse()[:5]
+        databeritaTerpopuler        = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaTerpopulerOne     = Postsberita.objects.all().order_by('-posts_page_view')[:1]
+        datafituHome                = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
+        dataGerejaHome              = Postsberita.objects.filter(category_id=2)[:5]
+        dataOpiniHome               = Postsberita.objects.filter(category_id=14)[:5]
        
 
         dataMenu = {
@@ -71,13 +71,13 @@ class Contact(View):
 class Kegiatan_gereja(View):
     def get(self, request):
 
-        dataKegiatan_gereja    = Postsberitaslider.objects.filter(category_id = 2).order_by('-posts_id')[:10]
+        dataKegiatan_gereja    = Postsberita.objects.filter(category_id = 2).order_by('-posts_id')[:10]
         dataKategoriBerita     = Mastercategory.objects.order_by('category_id')
         dataGroupByKategori    = Mastercategory.objects.all().annotate(
-                    count_post = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler   = Postsberitaslider.objects.filter(category_id = 2).order_by('-posts_page_view')[:5]
-        datafituHome           = Firtu.objects.all().order_by('-firtu_id')[:5]
-        databeritaterkait      = Postsberitaslider.objects.filter(category_id=2)
+                    count_post = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler   = Postsberita.objects.filter(category_id = 2).order_by('-posts_page_view')[:5]
+        datafituHome           = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
+        databeritaterkait      = Postsberita.objects.filter(category_id=2)
         
         dataGereja = {
             "dataMenuGerejaView"        :  dataKegiatan_gereja,  
@@ -92,11 +92,11 @@ class Kegiatan_gereja(View):
 
 class Firmantuhan(View):
     def get(self, request):
-        datafituview                = Firtu.objects.all().order_by('-firtu_id')[:10]
+        datafituview                = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:10]
         dataGroupByKategori         = Mastercategory.objects.all().annotate(
-                count_post          = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler        = Postsberitaslider.objects.filter(category_id = 2).order_by('-posts_page_view')[:5]
-        databeritaterkait           = Postsberitaslider.objects.filter(category_id=2)
+                count_post          = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler        = Postsberita.objects.filter(category_id = 2).order_by('-posts_page_view')[:5]
+        databeritaterkait           = Postsberita.objects.filter(category_id=2)
 
         dataFirtu = {
             "dataFirtuView"             : datafituview,
@@ -110,12 +110,12 @@ class Firmantuhan(View):
 
 class Opini(View):
     def get(self, request):
-        dataOpini               = Postsberitaslider.objects.filter(category_id=14).order_by('-posts_id')[:10]
+        dataOpini               = Postsberita.objects.filter(category_id=14).order_by('-posts_id')[:10]
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
-                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaterkait       = Postsberitaslider.objects.filter(category_id=14)
-        datafituview            = Firtu.objects.all().order_by('-firtu_id')[:5]
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.filter(category_id=14)
+        datafituview            = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
 
         dataOpiniView = {
             "opiniView" : dataOpini,
@@ -131,9 +131,9 @@ class Foto(View):
     def get(self, request):
         dataFoto                = Gallery.objects.all().filter(gallery_status='foto').order_by('-gallery_id')
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
-                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaterkait       = Postsberitaslider.objects.order_by('-posts_id')[:5]
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
 
         dataFotoView = {
             "FotoView"                  : dataFoto,
@@ -147,9 +147,9 @@ class Video(View):
     def get(self, request):
         dataFoto                = Gallery.objects.all().filter(gallery_status='video').order_by('-gallery_id')
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
-                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaterkait       = Postsberitaslider.objects.order_by('-posts_id')[:5]
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
 
         dataFotoView = {
             "FotoView"                  : dataFoto,
@@ -162,12 +162,12 @@ class Video(View):
 
 class Pemerintah(View):
     def get(self, request):
-        dataBeritaPemerintah    = Postsberitaslider.objects.filter(category_id = 11).order_by('-posts_id')[:5]
+        dataBeritaPemerintah    = Postsberita.objects.filter(category_id = 11).order_by('-posts_id')[:5]
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
-                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaterkait       = Postsberitaslider.objects.order_by('-posts_id')[:5]
-        datafituview            = Firtu.objects.all().order_by('-firtu_id')[:5]
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
+        datafituview            = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
 
         dataViewberitapemerintah = {
            "dataVberitaPemerintah"      : dataBeritaPemerintah,
@@ -181,12 +181,12 @@ class Pemerintah(View):
 
 class Hukumpolitik(View):
     def get(self, request):
-        dataBeritahukumpolitik  = Postsberitaslider.objects.filter(category_id = 12).order_by('-posts_id')[:5]
+        dataBeritahukumpolitik  = Postsberita.objects.filter(category_id = 12).order_by('-posts_id')[:5]
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
-                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaterkait       = Postsberitaslider.objects.order_by('-posts_id')[:5]
-        datafituview            = Firtu.objects.all().order_by('-firtu_id')[:5]
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
+        datafituview            = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
 
         dataViewberitahukumpolitik = {
            "dataVberitahukumpolitik"    : dataBeritahukumpolitik,
@@ -200,12 +200,12 @@ class Hukumpolitik(View):
 
 class SosialBudaya(View):
     def get(self, request):
-        dataBeritaSosialBudaya  = Postsberitaslider.objects.filter(category_id = 13).order_by('-posts_id')[:5]
+        dataBeritaSosialBudaya  = Postsberita.objects.filter(category_id = 13).order_by('-posts_id')[:5]
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
-                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaterkait       = Postsberitaslider.objects.order_by('-posts_id')[:5]
-        datafituview            = Firtu.objects.all().order_by('-firtu_id')[:5]
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
+        datafituview            = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
 
         dataViewberitaSosialBudaya = {
            "dataVberitaSosialBudaya"    : dataBeritaSosialBudaya,
@@ -219,12 +219,12 @@ class SosialBudaya(View):
 
 class Pendidikan(View):
     def get(self, request):
-        dataBeritapendidikan    = Postsberitaslider.objects.filter(category_id = 4).order_by('-posts_id')[:5]
+        dataBeritapendidikan    = Postsberita.objects.filter(category_id = 4).order_by('-posts_id')[:5]
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
-                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaterkait       = Postsberitaslider.objects.order_by('-posts_id')[:5]
-        datafituview                = Firtu.objects.all().order_by('-firtu_id')[:5]
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
+        datafituview                = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
 
         dataViewberitapendidikan = {
            "dataVberitapendidikan"      : dataBeritapendidikan,
@@ -238,12 +238,12 @@ class Pendidikan(View):
 
 class Ekonomi(View):
     def get(self, request):
-        dataBeritaekonomi       = Postsberitaslider.objects.filter(category_id = 5).order_by('-posts_id')[:5]
+        dataBeritaekonomi       = Postsberita.objects.filter(category_id = 5).order_by('-posts_id')[:5]
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
-                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaterkait       = Postsberitaslider.objects.order_by('-posts_id')[:5]
-        datafituview            = Firtu.objects.all().order_by('-firtu_id')[:5]
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
+        datafituview            = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
 
         dataViewberitaekonomi = {
            "dataVberitaekonomi"         : dataBeritaekonomi,
@@ -257,12 +257,12 @@ class Ekonomi(View):
 
 class Kesehatan(View):
     def get(self, request):
-        dataBeritakesehatan     = Postsberitaslider.objects.filter(category_id = 6).order_by('-posts_id')[:5]
+        dataBeritakesehatan     = Postsberita.objects.filter(category_id = 6).order_by('-posts_id')[:5]
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
-                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaterkait       = Postsberitaslider.objects.order_by('-posts_id')[:5]
-        datafituview            = Firtu.objects.all().order_by('-firtu_id')[:5]
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
+        datafituview            = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
 
         dataViewberitakesehatan = {
            "dataVberitakesehatan"       : dataBeritakesehatan,
@@ -275,12 +275,12 @@ class Kesehatan(View):
         return render(request,'frontend/kesehatan.html', dataViewberitakesehatan)
 class Detail_post(View):
     def get(self, request, pk):
-        mDetailPosts = Postsberitaslider.objects.filter(posts_id = pk)
+        mDetailPosts = Postsberita.objects.filter(posts_id = pk)
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
-                count_post      = Count('categorys', filter=Q(postsberitaslider__category_id = F('category_id'))))
-        databeritaTerpopuler    = Postsberitaslider.objects.all().order_by('-posts_page_view')[:5]
-        databeritaterkait       = Postsberitaslider.objects.order_by('-posts_id')[:5]
-        datafituview            = Firtu.objects.all().order_by('-firtu_id')[:5]
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
+        datafituview            = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
         dataPostsNews = {
             "ViewDetailPostNews" : mDetailPosts,
             "dataJumlahKategori"         :  dataGroupByKategori,

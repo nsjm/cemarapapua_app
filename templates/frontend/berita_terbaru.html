@@ -3,113 +3,70 @@
 <div class="whats-news-wrapper">
     <!-- Heading & Nav Button -->
     <div class="row justify-content-between align-items-end mb-15">
-        <div class="col-xl-4">
+        <!-- <div class="col-xl-4">
             <div class="section-tittle mb-30">
-                <!-- <h4></h4> -->
+                <h4>Berita</h4>
             </div>
-        </div>
-        <div class="col-xl-8 col-md-9">
-            <div class="properties__button">
-                <!--Nav Button  -->                                            
-                <nav>                                                 
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        {% for kategoryBerita in dataKategoryBerita  %}
-                        <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{ kategoryBerita.categorys }}</a>
-                        {% endfor %}
-                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Gereja</a>
+        </div> -->
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="whats-news-single mb-40 mb-40">
+                        <div class="whates-img">
+                            <img src="assets/img/gallery/whats_news_details1.png" alt="">
+                        </div>
+                        <div class="whates-caption whates-caption2">
+                            <h4><a href="#">Secretart for Economic Air
+                                plane that looks like</a></h4>
+                            <span>by Alice cloe   -   Jun 19, 2020</span>
+                            <p>Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.</p>
+                        </div>
                     </div>
-                </nav>
-                <!--End Nav Button  -->
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="whats-news-single mb-40 mb-40">
+                        <div class="whates-img">
+                            <img src="assets/img/gallery/whats_news_details2.png" alt="">
+                        </div>
+                        <div class="whates-caption whates-caption2">
+                            <h4><a href="#">Secretart for Economic Air
+                                plane that looks like</a></h4>
+                            <span>by Alice cloe   -   Jun 19, 2020</span>
+                            <p>Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="whats-news-single mb-40 mb-40">
+                        <div class="whates-img">
+                            <img src="assets/img/gallery/whats_news_details3.png" alt="">
+                        </div>
+                        <div class="whates-caption whates-caption2">
+                            <h4><a href="#">Secretart for Economic Air
+                                plane that looks like</a></h4>
+                            <span>by Alice cloe   -   Jun 19, 2020</span>
+                            <p>Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="whats-news-single mb-40 mb-40">
+                        <div class="whates-img">
+                            <img src="assets/img/gallery/whats_news_details3.png" alt="">
+                        </div>
+                        <div class="whates-caption whates-caption2">
+                            <h4><a href="#">Secretart for Economic Air
+                                plane that looks like</a></h4>
+                            <span>by Alice cloe   -   Jun 19, 2020</span>
+                            <p>Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.</p>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
-    <!-- Tab content -->
-    <div class="row">
-        <div class="col-12">
-            
-            <div class="tab-content" id="nav-tabContent">
-                
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">       
-                    <div class="row">
-                        
-                        <div class="col-xl-6 col-lg-12">
-                            <div class="whats-news-single mb-40 mb-40">
-                                <div class="whates-img">
-                                    <img src="{% static 'frontend/img/news_/berita4.jpeg' %}" alt="">
-                                </div>
-                                <div class="whates-caption">
-                                    <h4><a href="detail_news.html">Sri Mulyani Klaim Ekonomi Tumbuh Berkat Kebijakan Pemerintah</a></h4>
-                                    <span>Oleh Admin   -   11 Agustus 2021</span>
-                                    <p>Jakarta, CNN Indonesia -- Menteri Keuangan Sri Mulyani mengklaim pertumbuhan ekonomi Indonesia yang bangkit ke kisaran 7,07 persen pada kuartal II 2021 terjadi berkat kebijakan pemerintah. Khususnya melalui berbagai stimulus fiskal seperti bantuan sosial (bansos).
 
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-xl-6 col-lg-12">
-                            <div class="row">
-                               
-                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                    <div class="whats-right-single mb-20">
-                                        <div class="whats-right-img">
-                                            <img src="{% static 'frontend/img/news_/berita5.jpg' %}" alt="" style="width: 124px; height: 104px;">
-                                        </div>
-                                        <div class="whats-right-cap">
-                                            <span class="colorb">Kesehatan</span>
-                                            <h4><a href="detail_news.html">Mal Buka, Pengunjung Wajib Scan Barcode dan Kartu Vaksin.</a></h4>
-                                            <p>11 Agustus 2021</p> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tab-pane fade show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <div class="row">
-                        
-                        <div class="col-xl-6">
-                            <div class="whats-news-single mb-40">
-                                <div class="whates-img">
-                                    <img src="{% static 'frontend/img/gallery/whats_right_img2.png' %}" alt="">
-                                </div>
-                                <div class="whates-caption">
-                                    <h4><a href="#">Secretart for Economic Air
-                                        plane that looks like</a></h4>
-                                    <span>by Alice cloe   -   Jun 19, 2020</span>
-                                    <p>Struggling to sell one multi-million dollar home currently on the market won’t stop actress and singer Jennifer Lopez.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-xl-6 col-lg-12">
-                            <div class="row">
-                               
-                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
-                                    <div class="whats-right-single mb-20">
-                                        <div class="whats-right-img">
-                                            <img src="{% static 'frontend/img/gallery/whats_right_img1.png' %}" alt="">
-                                        </div>
-                                        <div class="whats-right-cap">
-                                            <span class="colorb">FASHION</span>
-                                            <h4><a href="detail_news.html">Portrait of group of friends ting eat. market in.</a></h4>
-                                            <p>Jun 19, 2020</p> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-        
-        
-       
-        </div>
-    </div>
 </div>
 
 

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from .config import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +28,8 @@ DEBUG = True
 
 SESI_ADMIN = 'cemarapapua_admin'
 
-ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'cemara-papua.com', 'cemara-papua.com:8000']
+# ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'cemara-papua.com', 'cemara-papua.com:8000']
+ALLOWED_HOSTS = ['localhost', 'localhost:8000']
 
 
 # Application definition
@@ -86,18 +88,27 @@ WSGI_APPLICATION = 'cemarapapua.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'cemarapapua_db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'Midnightpro22.',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cemarapapua_db',
-        'USER': 'postgres',
-        'PASSWORD': 'Midnightpro22.',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': database_name,
+        'USER': database_user,
+        'PASSWORD': database_pass,
+        'HOST': database_host,
+        'PORT': database_port,
     }
 }
-
-
 
 
 # Password validation

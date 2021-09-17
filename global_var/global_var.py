@@ -1,7 +1,7 @@
 from os import stat
 from django.core import exceptions
 from django.db.models import Case, When, F, Value, BooleanField
-from cemarapapua_frontend.models import Mastermenu
+from cemarapapua_app.models import Mastermenu
 import bcrypt,dropbox, os
 from cemarapapua.settings import SESI_ADMIN
 from functools import wraps
