@@ -1,5 +1,0 @@
-database_name = 'cemarapapua_db'
-database_user = 'postgres'
-database_pass = 'Midnightpro22.'
-database_host = 'localhost'
-database_port = '5432'
