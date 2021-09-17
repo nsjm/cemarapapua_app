@@ -24,12 +24,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ye-!wh2&!5$2wgeym(q_s$!dgik^gc5&tdian15yd-jpou4g8e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 SESI_ADMIN = 'cemarapapua_admin'
 
 # ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'cemara-papua.com', 'cemara-papua.com:8000']
-ALLOWED_HOSTS = ['localhost', 'localhost:8000']
+ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'cemara-papua.com']
 
 
 # Application definition
@@ -47,8 +47,6 @@ INSTALLED_APPS = [
     'cemarapapuaAuth',
     'widget_tweaks',
     'ckeditor',
-    
-   
 ]
 
 MIDDLEWARE = [
@@ -59,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'middleware.cek_user',
 ]
 
@@ -162,6 +161,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "cemarapapua_frontend/assets"),
     
 ]
+STATIC_ROOT= os.path.join(BASE_DIR, 'assets_root')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media_root")
 
