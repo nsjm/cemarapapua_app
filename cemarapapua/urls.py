@@ -21,6 +21,6 @@ urlpatterns = [
     # untuk path url aplikasi
     path('cemarapapuaAuth/', include('cemarapapuaAuth.urls')),
     path('dashboardadmin/', include('cemarapapua_app.urls')),
-    path('frontenduser/', include('cemarapapua_frontend.urls')),
+    path('', include('cemarapapua_frontend.urls')),
     
 ]
