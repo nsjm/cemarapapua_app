@@ -33,7 +33,7 @@ class Cemarapapua_front_index(View):
         databeritaSlider            = Postsberita.objects.all().order_by('-posts_date')[:5]
         databeritaSlidertopone      = Postsberita.objects.all().order_by('-posts_date','-posts_page_view')[:2]
         databeritaUtama             = Postsberita.objects.filter(category_id=11)
-        databeritaPercategory       = Postsberita.objects.all().order_by('posts_id').reverse() 
+        databeritaPercategory       = Postsberita.objects.all().order_by('posts_id').reverse() [:8]
         dataGallery                 = Gallery.objects.all()
         dataMastercategry           = Mastercategory.objects.all().order_by('category_id')[:5]
         # dataBeritaterbaru           = Postsberita.objects.all().order_by('posts_id').reverse()[:5]
@@ -275,18 +275,21 @@ class Kesehatan(View):
         return render(request,'frontend/kesehatan.html', dataViewberitakesehatan)
 class Detail_post(View):
     def get(self, request, pk):
-        mDetailPosts = Postsberita.objects.filter(posts_id = pk)
+        mDetailPosts            = Postsberita.objects.filter(posts_id = pk)
         dataGroupByKategori     = Mastercategory.objects.all().annotate(
                 count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
         databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
         databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
         datafituview            = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
+        mCommentar = CommetarPengunjung.objects.filter(posts_id = pk)
         dataPostsNews = {
             "ViewDetailPostNews" : mDetailPosts,
-            "dataJumlahKategori"         :  dataGroupByKategori,
+            "dataJumlahKategori"        :  dataGroupByKategori,
             "databeritaTerpopulerView"  : databeritaTerpopuler,
             "beritaTerkait"             : databeritaterkait, 
             "dataFirtuView"             : datafituview,
+            "ViewCOmmentar"             : mCommentar,
             
         }
         return render(request,'frontend/detail_posts.html',dataPostsNews)
+

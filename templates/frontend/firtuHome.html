@@ -54,8 +54,8 @@
                 <!-- <img src="{% static 'frontend/img/gallery/most_recent1.png' %}" alt=""> -->
             </div>
             <div class="most-recent-capt">
-                <h4><a href="detail_news.html" >{{ firtuHome.firtu_title }}</a></h4>
-                <p align="justify"> {{ firtuHome.firtu_desc }} </p>
+                <h4><a href="#" >{{ firtuHome.firtu_title }}</a></h4>
+                <p align="justify"> {{ firtuHome.posts_desc|slice:":255"}} </p>
                 <span style="font-size: small; "><i>{{ firtuHome.firtu_date }}</i></span>
             </div>
         </div>

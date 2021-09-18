@@ -20,11 +20,11 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <blockquote class="generic-blockquote" style="padding: 15px;">
-                                            “
-                                                {{firtuView.firtu_desc|slice:":255"}}
-                                                <br><a href="" style="color: darkkhaki;"><span class="fa fa-eye"></span> Baca Selanjutnya</a>
+                                             <!-- {% autoescape off %} -->
+                                                "{{firtuView.firtu_desc|slice:":255"}}"
+                                                <!-- {% endautoescape %} -->
 
-                                            ”
+                                                <br><a href="" style="color: darkkhaki;"><span class="fa fa-eye"></span> Baca Selanjutnya</a>
                                         </blockquote>
                                         <div class="social-share pt-30" style="padding: 0px;">
                                             <div class="section-tittle">
@@ -33,7 +33,7 @@
                                                     <li><a href="#"><img src="{% static 'frontend/img/news/icon-ins.png' %}" alt=""></a></li>
                                                     <li><a href="#"><img src="{% static 'frontend/img/news/icon-fb.png' %}" alt=""></a></li>
                                                     <li><a href="#"><img src="{% static 'frontend/img/news/icon-tw.png' %}" alt=""></a></li>
-                                                    <li><a href="#"><img src="{% static 'frontend/img/news/icon-yo.png' %}" alt=""></a></li>
+                                                    
                                                 </ul>
                                             </div>
                                         </div>
@@ -86,7 +86,7 @@
                             <div class="media post_item">
                                 <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px">
                                 <div class="media-body">
-                                    <a href="detail_news.html">
+                                    <a href="{% url 'cemarapapua_front:detailposts' dataTerpopuler.posts_id %}">
                                         <h3>{{ dataTerpopuler.posts_title }}</h3>
                                     </a>
                                     <p>{{ dataTerpopuler.posts_date }}</p>

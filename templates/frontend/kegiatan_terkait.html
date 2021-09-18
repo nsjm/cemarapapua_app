@@ -28,7 +28,7 @@
                                                 <img src="{% static 'frontend/img/news_/' %}{{ terkaitGereja.posts_img }}" alt="">
                                             </div>
                                             <div class="weekly2-caption">
-                                                <h4><a href="#">{{ terkaitGereja.posts_title }}</a></h4>
+                                                <h4><a href="{% url 'cemarapapua_front:detailposts' terkaitGereja.posts_id %}">{{ terkaitGereja.posts_title }}</a></h4>
                                                 <p>Oleh : {{ terkaitGereja.user_id.full_name }}  |  {{ terkaitGereja.category_id.categorys }}</p>
                                             </div>
                                         </div>

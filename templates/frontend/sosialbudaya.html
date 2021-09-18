@@ -13,20 +13,20 @@
                     <article class="blog_item">
                         <div class="blog_item_img">
                             <img class="card-img rounded-0" src="{% static 'frontend/img/news_/' %}{{ listSosialbudaya.posts_img }}" alt="" width="" height="380">
-                            <a href="#" class="blog_item_date">
+                            <a href="{% url 'cemarapapua_front:detailposts' listSosialbudaya.posts_id %}" class="blog_item_date">
                                 <h3>15</h3>
                                 <p>Jan</p>
                             </a>
                         </div>
 
                         <div class="blog_details">
-                            <a class="d-inline-block" href="detail_news.html">
+                            <a class="d-inline-block" href="{% url 'cemarapapua_front:detailposts' listSosialbudaya.posts_id %}">
                                 <h2>{{ listSosialbudaya.posts_title }}</h2>
                             </a>
                              <!-- {% autoescape off %} -->
                                 {{ listSosialbudaya.posts_desc|slice:":255"}}
                              <!-- {% endautoescape %} -->
-                             <a href="detail.html" style="background-color:rgb(9, 236, 122) ; padding: 5px; border-radius: 5px;"><i><b>Baca Selanjutnya</b> </i></a>
+                             <a href="{% url 'cemarapapua_front:detailposts' listSosialbudaya.posts_id %}" style="background-color:rgb(9, 236, 122) ; padding: 5px; border-radius: 5px;"><i><b>Baca Selanjutnya</b> </i></a>
 
                              <p>
                                 Keyword:<span style="background-color:#f1efd7; border-radius: 2px;"><i> {{ listSosialbudaya.posts_keyword }}</i></span>
@@ -35,6 +35,7 @@
                                 <li><a href="#"><i class="fa fa-user"></i> {{ listSosialbudaya.user_id.full_name }}</a></li>
                                 <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
                                 <li><a href="#"><i class="fa fa-label"></i> {{ listSosialbudaya.category_id.categorys }}</a></li>
+                                <li><a href="#"><i class="fa fa-calendar"></i> {{ listSosialbudaya.posts_date }}</a></li>
                             </ul>
 
                         </div>
@@ -97,7 +98,7 @@
                                                     </div>
                                                     <div class="weekly2-caption">
                                                         <span style="background-color: #14f8e9; padding: 3px; border-radius: 2px; font-size: small;"><b>{{listBeritaTerkait.category_id.categorys}}</b></span>
-                                                        <h4><a href="#">{{listBeritaTerkait.posts_title}}</a></h4>
+                                                        <h4><a href="{% url 'cemarapapua_front:detailposts' listBeritaTerkait.posts_id %}">{{listBeritaTerkait.posts_title}}</a></h4>
                                                         
                                                     </div>
                                                 </div> 
@@ -153,7 +154,7 @@
                                 <div class="media post_item">
                                     <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px">
                                     <div class="media-body">
-                                        <a href="detail_news.html">
+                                        <a href="{% url 'cemarapapua_front:detailposts' dataTerpopuler.posts_id %}">
                                             <h3>{{ dataTerpopuler.posts_title }}</h3>
                                         </a>
                                         <p>{{ dataTerpopuler.posts_date }}</p>
@@ -172,7 +173,7 @@
                             <a href="detail_news.html">
                                 <h3>{{ dataListFirtu.firtu_title }}</h3>
                             </a>
-                            <p>"{{ dataListFirtu.firtu_desc }}"</p>
+                            <!-- <p>"{{ dataListFirtu.firtu_desc }}"</p> -->
                         </div>
                     </div>
                     {% endfor %}

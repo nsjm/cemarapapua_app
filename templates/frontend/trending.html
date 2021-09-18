@@ -15,21 +15,21 @@
                                     <img src="{% static 'frontend/img/news_/' %}{{ beritaSliderTrending.posts_img }}" alt="" width="702px" height="465px">
                                     <div class="trend-top-cap">
                                         <span class="bgr" data-animation="fadeInUp" data-delay=".2s" data-duration="1000ms">  {{ beritaSliderTrending.category_id.categorys }} </span>
-                                        <h2><a href="detail_news.html" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">{{ beritaSliderTrending.posts_title }}</a></h2>
-                                        <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">Oleh {{ beritaSliderTrending.user_id.full_name }}   -   {{ beritaSliderTrending.posts_date }}</p>
+                                        <h2><a href="{% url 'cemarapapua_front:detailposts' beritaSliderTrending.posts_id %}" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">{{ beritaSliderTrending.posts_title }}</a></h2>
+                                        <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">Penulis: {{ beritaSliderTrending.user_id.full_name }}   -   {{ beritaSliderTrending.posts_date }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                          {% endfor %}
                     </div>
-                    <!-- link kopid <div>
-                        {% for koped in copedshow %}
+                    <div>
+                        <!-- {% for koped in copedshow %}
                         {% if koped.is_error %}
 
                         <span style="background-color: coral; color: darkblue; padding: 5px;"><i><b>Data Sedang Diperbaiki...</b></i></span>
 
-                        {% endif %}
+                        {% endif %} -->
                     <div class="row">
                         <div class="col-md-6"><h3 style="color: black; font-size: medium;">Data realtime COVID-19 Di Indonesia</h3></div>
                         <div class="col-md-6"><h5 style="color: black; font-size: small;" align='right'><i>Sumber: API - https://kawalcorona.com/</i></h5></div>
@@ -38,31 +38,31 @@
                         <div class="col-lg-3">
                             <div style="border-radius: 5px; background-color: #ddc63a; box-shadow:5px 5px #d1d0d0;">
                                 <label style="margin-left: 10px; color:white;">Dirawat</label>
-                                <h5 style="margin-left: 10px; padding-bottom: 10px; color:white;" align='center'>{{ koped.dirawat }}</h5>
+                                <h5 style="margin-left: 10px; padding-bottom: 10px; color:white;" align='center'>0</h5>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div style="border-radius: 5px; background-color: #ae4359; box-shadow:5px 5px #d1d0d0;">
                                 <label style="margin-left: 10px; color:white;">Meninggal</label>
-                                <h5 style="margin-left: 10px; padding-bottom: 10px; color:white;" align='center'>{{ koped.meninggal }}</h5>
+                                <h5 style="margin-left: 10px; padding-bottom: 10px; color:white;" align='center'>0</h5>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div style="border-radius: 5px; background-color: #0e42ac; box-shadow:5px 5px #d1d0d0;">
                                 <label style="margin-left: 10px; color:white;">Positif</label>
-                                <h5 style="margin-left: 10px; padding-bottom: 10px; color:white;" align='center'>{{ koped.positif }}</h5>
+                                <h5 style="margin-left: 10px; padding-bottom: 10px; color:white;" align='center'>0</h5>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div style="border-radius: 5px; background-color: #22be1c; box-shadow:5px 5px #d1d0d0;">
                                 <label style="margin-left: 10px; color:white;">Sembuh</label>
-                                <h5 style="margin-left: 10px; padding-bottom: 10px; color:white;" align='center'>{{ koped.sembuh }}</h5>
+                                <h5 style="margin-left: 10px; padding-bottom: 10px; color:white;" align='center'>0</h5>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
-                    </div> -->
-                   
+                    <!-- {% endfor %} -->
+                    </div>
+                    <!-- kopid di bunnuh -->
                 </div>
                 <!-- Right content -->
                 <div class="col-lg-4">
@@ -75,8 +75,8 @@
                                     <img src="{% static 'frontend/img/news_/' %}{{ beritaTopOne.posts_img }}" alt="" width="300px;" height="280px;">
                                     <div class="trend-top-cap trend-top-cap2">
                                         <span class="bgb">{{ beritaTopOne.category_id.categorys }}</span>
-                                        <h2><a href="detail_news.html">{{ beritaTopOne.posts_title }}</a></h2>
-                                        <p>Oleh {{ beritaTopOne.user_id.user_fullname }}   -   {{ beritaTopOne.posts_date }}</p>
+                                        <h2><a href="{% url 'cemarapapua_front:detailposts' beritaTopOne.posts_id %}">{{ beritaTopOne.posts_title }}</a></h2>
+                                        <p>Penulis {{ beritaTopOne.user_id.full_name }}   -   {{ beritaTopOne.posts_date }}</p>
                                     </div>
                                 </div>
                             </div>

@@ -14,7 +14,7 @@
                 <span class="fa fa-calendar"></span> | {{ listOpini.posts_date }} <span class="fa fa-user"></span> | {{listOpini.user_id.full_name}}
             </p>
             <div>
-                <a href=""><h3 style="font-size: medium;"><b>{{ listOpini.posts_title }}</b></h3></a>
+                <a href="{% url 'cemarapapua_front:detailposts' listOpini.posts_id %}"><h3 style="font-size: medium;"><b>{{ listOpini.posts_title }}</b></h3></a>
             </div>
         </div>
     </div>

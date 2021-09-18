@@ -14,7 +14,7 @@
                     <span class="bgbeg">Terpopuler </span>
                     <span class="bgbeg" style="background-color: #42cd60;">{{ TerpopulerOne.category_id.categorys }} </span>
                     
-                    <h4><a href="detail_news.html">{{ TerpopulerOne.posts_title }}<br>
+                    <h4><a href="{% url 'cemarapapua_front:detailposts' TerpopulerOne.posts_id %}">{{ TerpopulerOne.posts_title }}<br>
                         </a></h4>
                     <p>{{ TerpopulerOne.user_id.full_name }}  |  {{ TerpopulerOne.posts_date }}</p>
                 </div>
@@ -27,7 +27,7 @@
                 <img src="{% static 'frontend/img/gallery/most_recent1.png' %}{{ beritaTerpopulerAll.posts_img }}" alt="">
             </div>
             <div class="most-recent-capt">
-                <h4><a href="detail_news.html">{{ beritaTerpopulerAll.posts_title }}</a></h4>
+                <h4><a href="{% url 'cemarapapua_front:detailposts' beritaTerpopulerAll.posts_id %}" >{{ beritaTerpopulerAll.posts_title }}</a></h4>
                 <p>{{ beritaTerpopulerAll.user_id.full_name }}  |  {{ beritaTerpopulerAll.posts_date }} | {{ beritaTerpopulerAll.category_id.categorys }} </p>
             </div>
         </div>

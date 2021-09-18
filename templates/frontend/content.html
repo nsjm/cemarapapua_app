@@ -28,17 +28,12 @@
                              <div class="col-xl-8">
                                 <div class="whates-caption whates-caption2">
                                     <h4><a href="#" style="color: black; font-size: medium;"><b>{{ dataHomeGereja.posts_title }}</b></a></h4>
-                                    <span style="font-size: small;">Oleh {{ dataHomeGereja.user_id.full_name }} | {{ dataHomeGereja.posts_date }} </span> <span style="padding: 3px; background-color: #31f12087; font-size: small; border-radius: 5px;"> {{ dataHomeGereja.category_id.categorys }} </span>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque nihil, debitis sint obcaecati odit aut aliquam exercitationem,
-                                         distinctio adipisci assumenda blanditiis id ullam, doloremque veritatis harum? Harum quibusdam consectetur id.
-                                         <a href="#" class="btn  btn-sm btn-primary" style="padding:15px 15px; background-color: darkkhaki; font-size: 10px;">Baca Selanjutnya</a>
-                                    </p>
-                                    <!-- {% autoescape off %}
-                                      
-                                          {{ dataHomeGereja.posts_desc }}
-                                      
-                                      {% endautoescape %} -->
+                                    <span style="font-size: small;">Oleh {{ dataHomeGereja.user_id.full_name }} | {{ dataHomeGereja.posts_date }} </span> <span style="padding: 3px; background-color: #5c725a87; font-size: small;"> {{ dataHomeGereja.category_id.categorys }} </span>
+                                     <!-- {% autoescape off %} -->
+                                        {{ dataHomeGereja.posts_desc|slice:":255"}}
+                                    <!-- {% endautoescape %} -->
+                                         <a href="{% url 'cemarapapua_front:detailposts' dataHomeGereja.posts_id %}" class="genric-btn info-border medium">Baca Selanjutnya</a>
+                     
                                    
                                 </div>
                              </div>
@@ -59,16 +54,13 @@
                             <div class="col-xl-8">
                             <div class="whates-caption whates-caption2">
                                 <h4><a href="#" style="color: black; font-size: medium;"><b>{{ dataOpiniHome.posts_title }}</b></a></h4>
-                                <span style="font-size: small;">Oleh {{ dataOpiniHome.user_id.full_name }} | {{ dataOpiniHome.posts_date }} </span> <span style="padding: 3px; background-color: #31f12087; font-size: small; border-radius: 5px;"> {{ dataOpiniHome.category_id.categorys }} </span>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque nihil, debitis sint obcaecati odit aut aliquam exercitationem,
-                                        distinctio adipisci assumenda blanditiis id ullam, doloremque veritatis harum? Harum quibusdam consectetur id.
-                                        <a href="#" class="btn  btn-sm btn-primary" style="padding:15px 15px; background-color: darkkhaki; font-size: 10px;">Baca Selanjutnya</a>
-                                </p>
-                                <!-- {% autoescape off %}
-                                    
+                                <span style="font-size: small;">Oleh {{ dataOpiniHome.user_id.full_name }} | {{ dataOpiniHome.posts_date }} </span> <span style="padding: 3px; background-color: #5c725a87; font-size: small;"> {{ dataOpiniHome.category_id.categorys }} </span>
+                                 <!-- {% autoescape off %} -->
+                                 {{ dataOpiniHome.posts_desc|slice:":255"}}
+                                 <!-- {% endautoescape %} -->
+                                      <a href="{% url 'cemarapapua_front:detailposts' dataOpiniHome.posts_id %}" class="genric-btn info-border medium">Baca Selanjutnya</a>
+                                 <!-- {% autoescape off %}
                                         {{ dataOpiniHome.posts_desc }}
-                                    
                                     {% endautoescape %} -->
                                 
                             </div>
@@ -81,8 +73,7 @@
             </div>
         </div>
     </section>
-
-        {% include 'frontend/trendingnews.html' %}   
+            <!-- space trending news --> 
             <!-- video youtube -->
             <!-- {% include 'frontend/youtubehome.html' %} -->
         {% include 'frontend/galerihome.html' %}      

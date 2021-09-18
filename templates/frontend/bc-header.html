@@ -1,62 +1,42 @@
 {% load static %}
 {% block content %}
 <header>
-     <!-- Header Start -->
-     <div class="header-area">
-        <div class="main-header ">
-            <div class="header-top black-bg d-none d-sm-block" style="background-color: #166d3b;
-            background-image: linear-gradient(147deg, #166d3b 0%, #000000 74%); padding: 0px 0px;">
+    <!-- Header Start -->
+    <div class="header-area">
+        <div class="main-header">
+            <div class="header-top black-bg d-none d-sm-block" style="background-color: #353730; padding: 0px 0px;">
                 <div class="container">
-                    <div class="col-xl-12">
+                    <!-- <div class="col-xl-12"> -->
                         <div class="row d-flex justify-content-between align-items-center">
-                            <div class="header-info-left">
-                                <ul>     
-                                    <li class="title"><span class="flaticon-energy"></span> Breaking News</li>
-                                    {% for breakingnews in dataterpopulerTop %}
-                                        <li> <a href="#"><marquee width = "100%" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"><span class="flaticon-energy"></span><span style="font-size: small; color: white;">{{ breakingnews.posts_title }}</span></marquee></a> </li>
+                            
+                            <div class="col-lg-10">
+                                {% for breakingnews in dataterpopulerTop %}
+                                        <li> <a href="#"><marquee width = "100%" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"><span class="flaticon-energy"></span><span style="font-size: small;">{{ breakingnews.posts_title }}</span></marquee></a> </li>
                                     {% endfor %}
-                                </ul>
                             </div>
-                            <div class="header-info-right">
-                                <ul class="header-date">
-                                    <li><span class="flaticon-mail"></span> cemarapapuanews@gmail.com</li>
-                                </ul>
+                            <div class="col-lg-2">
+                                <li><span class="flaticon-phone"></span> <label style="font-size: small; color: white;">cemarapapuanews@gmail.com</label></li>
                             </div>
+                         
                         </div>
-                    </div>
+                    
                 </div>
             </div>
-            <div class="header-mid gray-bg" style="background-color: #166d3b;
-            background-image: linear-gradient(147deg, #166d3b 0%, #000000 74%);">
+            <div class="header-bottom header-sticky" style="background-color: #146e42eb;">
+                
                 <div class="container">
-                    <div class="row d-flex align-items-center">
-                        <!-- Logo -->
-                        <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
-                            <div class="logo">
-                                <a href="index.html"><img src="{% static 'frontend/img/logo/logo-3.png' %}" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="col-xl-9 col-lg-9 col-md-9">
-                            <div class="header-banner f-right ">
-                                <img src="{% static 'frontend/img/logo/hd2.png' %}" alt="" style="border-radius: 5px;">
-                                
-                            </div>
-                        </div>
+                    <div class="sticy-logo-desk" style="width: 100px; position: absolute; padding-top: 13px; left: 30px; ">
+                        <img src="{% static 'frontend/img/logo/logo.png' %}" width="100px;">
                     </div>
-                </div>
-            </div>
-            <div class="header-bottom header-sticky" style="background-color: #63d471;
-            background-image: linear-gradient(315deg, #63d471 0%, #233329 74%);">
-                <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-8 col-lg-8 col-md-12 header-flex">
                             <!-- sticky -->
-                            <div class="sticky-logo">
-                                <a href="index.html"><img src="{% static 'frontend/img/logo/logo-1.png' %}" alt=""></a>
-                            </div>
+                            
                             <!-- Main-menu -->
                             <div class="main-menu d-none d-md-block">
+                                <div class="sticky-logo" style="width: 60px; padding-top: 60px;"></div>
                                 <nav>
+                                  
                                     <ul id="navigation">
                                         {% for menus in menuheader %}
                                             {% if menus.parent_id == 0 %}
@@ -87,6 +67,10 @@
                                     <li><a href="https://www.instagram.com/cemarapapuanews/"><i class="fab fa-instagram"></i></a></li>
                                     <li> <a href="https://www.youtube.com/channel/UClOBcKJPoyJPRp6cAixHGjw"><i class="fab fa-youtube"></i></a></li>
                                 </ul>
+                                <!-- Search Nav -->
+                                <!-- <div class="nav-search search-switch">
+                                    <i class="fa fa-search"></i>
+                                </div> -->
                             </div>
                         </div>
                         <!-- Mobile Menu -->

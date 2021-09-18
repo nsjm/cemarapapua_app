@@ -10,13 +10,16 @@
           <div class="col-lg-8 posts-list">
              <div class="single-post">
                 <div class="feature-img">
-                   <img class="img-fluid" src="assets/img/news_/logistik.jpg" alt="">
+                  <center>
+                    <img class="img-fluid" src="{% static 'frontend/img/news_/' %}{{ detailposts.posts_img }}" alt="">
+                  </center>
                    <!-- <label style="font-size: small;"><i>Ilustrasi. Menteri BUMN Erick Thohir menyebut biaya logistik Indonesia lebih mahal 11 persen dari dunia sehingga kurang dapat bersaing.(ANTARA FOTO/ADITYA PRADANA PUTRA)</i></label> -->
                 </div>
                 <div class="blog_details">
                    <h2>{{ detailposts.posts_title }}</h2>
                    <ul class="blog-info-link mt-3 mb-4">
-                      <li><a href="#"><i class="fa fa-user"></i> {{ detailposts.category_id }}</a></li>
+                       <li><a href="#"><i class="fa fa-user"></i>{{detailposts.user_id.full_name}}</a></li>
+                      <li><a href="#"><i class="fa fa-tag"></i> {{ detailposts.category_id }}</a></li>
                       <li><a href="#"><i class="fa fa-calendar"></i> {{ detailposts.posts_date }}</a></li>
                    </ul>
                     {% autoescape off %}
@@ -28,7 +31,7 @@
                 <div class="d-sm-flex justify-content-between text-center">
                    
                    <div class="col-sm-4 text-center my-2 my-sm-0">
-                      <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
+                      <p class="comment-count"><span class="align-middle"><span class="fa fa-edit"></span> Penulis : {{ detailposts.user_id.full_name }}</p>
                    </div>
                    <ul class="social-icons">
                       <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -41,33 +44,36 @@
         
              <div class="comments-area">
                 <h4>05 Comments</h4>
-                
+                {% for ListCommentar in ViewCOmmentar %}
                 <div class="comment-list">
                    <div class="single-comment justify-content-between d-flex">
                       <div class="user justify-content-between d-flex">
                          <div class="thumb">
-                            <img src="assets/img/comment/comment_3.png" alt="">
+                            <!-- <img src="assets/img/comment/comment_3.png" alt=""> -->
+                            <span class="fa fa-comments"></span>
                          </div>
+                        
                          <div class="desc">
                             <p class="comment">
-                               Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                               Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
+                               {{ ListCommentar.pesan }}
                             </p>
                             <div class="d-flex justify-content-between">
                                <div class="d-flex align-items-center">
                                   <h5>
-                                     <a href="#">Emilly Blunt</a>
+                                     <a href="#"><span class="fa fa-user"></span> {{ ListCommentar.full_name }}</a>
                                   </h5>
-                                  <p class="date">December 4, 2017 at 3:12 pm </p>
+                                  <p class="date">{{ ListCommentar.com_date }}</p>
                                </div>
                                <div class="reply-btn">
-                                  <a href="#" class="btn-reply text-uppercase">reply</a>
+                                  <a href="#" class="btn-reply text-uppercase"><span class="fa fa-reply"></span> Balas</a>
                                </div>
                             </div>
                          </div>
+                      
                       </div>
                    </div>
                 </div>
+                {% endfor %}
              </div>
              <div class="weekly2-news-area pt-50 pb-30 gray-bg">
               <div class="container">
@@ -81,55 +87,29 @@
                                   <div class="row">
                                       <div class="col-lg-12">
                                           <div class="small-tittle mb-30">
-                                              <h4>Berita Utama</h4>
+                                              <h4>Berita Terkait</h4>
                                           </div>
                                       </div>
                                   </div>
                                   <!-- Slider -->
                                   <div class="row">
                                       <div class="col-lg-12">
-                                          <div class="weekly2-news-active d-flex">
-                                              <!-- Single -->
+                                        <div class="weekly2-news-active d-flex">
+                                            <!-- Single -->
+                                            {% for listBeritaTerkait in beritaTerkait %}
                                               <div class="weekly2-single">
                                                   <div class="weekly2-img">
-                                                      <img src="assets/img/gallery/weeklyNews1.png" alt="">
+                                                      <img src="{% static 'frontend/img/news_/' %}{{ listBeritaTerkait.posts_img }}" alt="" width="202" height="133">
+                                                      <p align='justify' style="font-size: 12px;">{{listBeritaTerkait.user_id.full_name}}  | {{listBeritaTerkait.posts_date}} </p>
                                                   </div>
                                                   <div class="weekly2-caption">
-                                                      <h4><a href="#">Scarlett’s disappointment at latest accolade</a></h4>
-                                                      <p>Jhon  |  2 hours ago</p>
+                                                      <span style="background-color: #14f8e9; padding: 3px; border-radius: 2px; font-size: small;"><b>{{listBeritaTerkait.category_id.categorys}}</b></span>
+                                                      <h4><a href="{% url 'cemarapapua_front:detailposts' listBeritaTerkait.posts_id %}">{{listBeritaTerkait.posts_title}}</a></h4>
+                                                      
                                                   </div>
                                               </div> 
-                                              <!-- Single -->
-                                              <div class="weekly2-single">
-                                                  <div class="weekly2-img">
-                                                      <img src="assets/img/gallery/weeklyNews2.png" alt="">
-                                                  </div>
-                                                  <div class="weekly2-caption">
-                                                      <h4><a href="#">Scarlett’s disappointment at latest accolade</a></h4>
-                                                      <p>Jhon  |  2 hours ago</p>
-                                                  </div>
-                                              </div> 
-                                              <!-- Single -->
-                                              <div class="weekly2-single">
-                                                  <div class="weekly2-img">
-                                                      <img src="assets/img/gallery/weeklyNews3.png" alt="">
-                                                  </div>
-                                                  <div class="weekly2-caption">
-                                                      <h4><a href="#">Scarlett’s disappointment at latest accolade</a></h4>
-                                                      <p>Jhon  |  2 hours ago</p>
-                                                  </div>
-                                              </div> 
-                                              <!-- Single -->
-                                              <div class="weekly2-single">
-                                                  <div class="weekly2-img">
-                                                      <img src="assets/img/gallery/weeklyNews2.png" alt="">
-                                                  </div>
-                                                  <div class="weekly2-caption">
-                                                      <h4><a href="#">Scarlett’s disappointment at latest accolade</a></h4>
-                                                      <p>Jhon  |  2 hours ago</p>
-                                                  </div>
-                                              </div> 
-                                          </div>
+                                            {% endfor %}
+                                        </div>
                                       </div>
                                   </div>
                               </div>
@@ -211,14 +191,13 @@
                               <div class="media post_item">
                                   <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px">
                                   <div class="media-body">
-                                      <a href="detail_news.html">
+                                      <a href="{% url 'cemarapapua_front:detailposts' dataTerpopuler.posts_id %}">
                                           <h3>{{ dataTerpopuler.posts_title }}</h3>
                                       </a>
                                       <p>{{ dataTerpopuler.posts_date }}</p>
                                   </div>
                               </div>
                           {% endfor %}
-                    
                 </aside>
 
                 <aside class="single_sidebar_widget popular_post_widget">
@@ -227,10 +206,12 @@
                   <div class="media post_item">
                       <!-- <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px"> -->
                       <div class="media-body">
-                          <a href="detail_news.html">
+                          <a href="#">
                               <h3>{{ dataListFirtu.firtu_title }}</h3>
                           </a>
-                          <p>"{{ dataListFirtu.firtu_desc }}"</p>
+                           <!-- {% autoescape off %} -->
+                          {{ dataListFirtu.firtu_desc|slice:":255"}}
+                          <!-- {% endautoescape %} -->
                       </div>
                   </div>
                   {% endfor %}

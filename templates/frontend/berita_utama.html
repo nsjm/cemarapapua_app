@@ -26,11 +26,11 @@
                                         {% for HotNews in beritaUtama %}
                                         <div class="weekly2-single">
                                             <div class="weekly2-img">
-                                                <img src="{% static 'frontend/img/gallery/' %}{{ HotNews.posts_img }}" alt="" width="345" height="230">
+                                                <img src="{% static 'frontend/img/news_/' %}{{ HotNews.posts_img }}" alt="" width="345" height="230">
                                             </div>
                                             <div class="weekly2-caption">
-                                                <h4><a href="#">{{ HotNews.posts_title }}</a></h4>
-                                                <p>Oleh : {{ HotNews.user_id.full_name }}  |  {{ HotNews.category_id.categorys }}</p>
+                                                <h4><a href="{% url 'cemarapapua_front:detailposts' HotNews.posts_id %}">{{ HotNews.posts_title }}</a></h4>
+                                                <p>Oleh : {{ HotNews.user_id.full_name }}  |  {{ HotNews.category_id.categorys }} | {{HotNews.posts_date}}</p>
                                             </div>
                                         </div>
 
