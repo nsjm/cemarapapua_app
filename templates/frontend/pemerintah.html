@@ -26,10 +26,11 @@
                              <!-- {% autoescape off %} -->
                                 {{ listPemerintah.posts_desc|slice:":255"}}
                              <!-- {% endautoescape %} -->
-                             <a href="{% url 'cemarapapua_front:detailposts' listPemerintah.posts_id %}" style="background-color:rgb(9, 228, 236) ; padding: 3px; border-radius: 3px;"><i><b><span class="fa fa-eye"></span> Baca Selanjutnya</b> </i></a>
+                        
+                             <a href="{% url 'cemarapapua_front:detailposts' listPemerintah.posts_id %}" class="genric-btn info-border medium"> Baca Selanjutnya</a>
 
                              <p>
-                                Keyword:<span style="background-color:#f1efd7; border-radius: 2px;"><i> {{ listPemerintah.posts_keyword }}</i></span>
+                                Keyword:{{ listPemerintah.posts_keyword }}
                              </p>
                             <ul class="blog-info-link">
                                 <li><a href="#"><i class="fa fa-user"></i> {{ listPemerintah.user_id.full_name }}</a></li>
