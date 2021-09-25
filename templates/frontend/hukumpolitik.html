@@ -1,6 +1,6 @@
 {% extends "frontend/index.html" %}
 {% load static %}
-
+{% load custom_tags %}
 {% block content %}
    <!--================Blog Area =================-->
    <section class="blog_area single-post-area section-padding" style="padding-top: 10px;">
@@ -12,7 +12,7 @@
 
                     <article class="blog_item">
                         <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="{% static 'frontend/img/news_/' %}{{ listHukumPolitik.posts_img }}" alt="" width="" height="380">
+                            <img class="card-img rounded-0" src="{{ listHukumPolitik.posts_img|generate_thumbnail }}" alt="" width="" height="380">
                             <a href="#" class="blog_item_date">
                                 <h3>15</h3>
                                 <p>Jan</p>
@@ -93,7 +93,7 @@
                                               {% for listBeritaTerkait in beritaTerkait %}
                                                 <div class="weekly2-single">
                                                     <div class="weekly2-img">
-                                                        <img src="{% static 'frontend/img/news_/' %}{{ listBeritaTerkait.posts_img }}" alt="" width="202" height="133">
+                                                        <img src="{{ listBeritaTerkait.posts_img|generate_thumbnail }}" alt="" width="202" height="133">
                                                         <p align='justify' style="font-size: 12px;">{{listBeritaTerkait.user_id.full_name}}  | {{listBeritaTerkait.posts_date}} </p>
                                                     </div>
                                                     <div class="weekly2-caption">
@@ -152,7 +152,7 @@
                       <h3 class="widget_title">Terpopuler</h3>
                             {% for dataTerpopuler in databeritaTerpopulerView %}
                                 <div class="media post_item">
-                                    <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px">
+                                    <img src="{{ dataTerpopuler.posts_img|generate_thumbnail }}" alt="post" width="80px" height="80px">
                                     <div class="media-body">
                                         <a href="{% url 'cemarapapua_front:detailposts' dataTerpopuler.posts_id %}">
                                             <h3>{{ dataTerpopuler.posts_title }}</h3>
@@ -170,7 +170,7 @@
                     <div class="media post_item">
                         <!-- <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px"> -->
                         <div class="media-body">
-                            <a href="#">
+                            <a href="{% url 'cemarapapua_front:detailfirtu' dataListFirtu.firtu_id %}">
                                 <h3>"{{ dataListFirtu.firtu_title }}"</h3>
                             </a>
                             <!-- {% autoescape off %} -->

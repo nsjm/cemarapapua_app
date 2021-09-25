@@ -1,16 +1,16 @@
 {% extends "frontend/index.html" %}
 {% load static %}
+<!-- use custome tags in template -->
+{% load custom_tags %}
 
 {% block content %}
     {% include 'frontend/trending.html' %}
-
     {% include 'frontend/berita_utama.html' %} 
-
     <section class="whats-news-area pt-50 pb-20 gray-bg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    {% include 'frontend/berita_terbaru.html'  %}    
+                    {% include 'frontend/berita_terbaru.html'  %}
                 </div>
                     {% include 'frontend/terpopuler.html' %}
                 <div class="col-lg-8">
@@ -21,14 +21,14 @@
                              <div class="col-xl-4">
                                 <div class="whats-news-single mb-40 mb-40">
                                     <div class="whates-img">
-                                        <img src="{% static 'frontend/img/news_/' %}{{ dataHomeGereja.posts_img }}" alt="" width="320px" height="200px">
+                                        <img src="{{ dataHomeGereja.posts_img|generate_thumbnail }}" alt="" width="320px" height="200px">
                                     </div>
                                 </div>
                              </div>
                              <div class="col-xl-8">
                                 <div class="whates-caption whates-caption2">
                                     <h4><a href="#" style="color: black; font-size: medium;"><b>{{ dataHomeGereja.posts_title }}</b></a></h4>
-                                    <span style="font-size: small;">Oleh {{ dataHomeGereja.user_id.full_name }} | {{ dataHomeGereja.posts_date }} </span> <span style="padding: 3px; background-color: #5c725a87; font-size: small;"> {{ dataHomeGereja.category_id.categorys }} </span>
+                                    <span style="font-size: small;">{{dataHomeGereja.posts_img}} Oleh {{ dataHomeGereja.user_id.full_name }} | {{ dataHomeGereja.posts_date }} </span> <span style="padding: 3px; background-color: #5c725a87; font-size: small;"> {{ dataHomeGereja.category_id.categorys }} </span>
                                      <!-- {% autoescape off %} -->
                                         {{ dataHomeGereja.posts_desc|slice:":255"}}
                                     <!-- {% endautoescape %} -->
@@ -47,7 +47,7 @@
                             <div class="col-xl-4">
                             <div class="whats-news-single mb-40 mb-40">
                                 <div class="whates-img">
-                                    <img src="{% static 'frontend/img/news_/' %}{{ dataOpiniHome.posts_img }}" alt="" width="320px" height="200px">
+                                    <img src="{{ dataOpiniHome.posts_img|generate_thumbnail }}" alt="" width="320px" height="200px">
                                 </div>
                             </div>
                             </div>
@@ -76,7 +76,8 @@
             <!-- space trending news --> 
             <!-- video youtube -->
             <!-- {% include 'frontend/youtubehome.html' %} -->
-        {% include 'frontend/galerihome.html' %}      
+        {% include 'frontend/galerihome.html' %}     
+        {% include 'frontend/contact_detail.html' %}     
 </main>
 
 {% endblock %}

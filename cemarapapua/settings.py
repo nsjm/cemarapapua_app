@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ye-!wh2&!5$2wgeym(q_s$!dgik^gc5&tdian15yd-jpou4g8e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = DEBUG_
 
 SESI_ADMIN = 'cemarapapua_admin'
 

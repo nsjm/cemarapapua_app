@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 {% block content %}
 
 <section>
@@ -26,7 +27,7 @@
                                         {% for HotNews in beritaUtama %}
                                         <div class="weekly2-single">
                                             <div class="weekly2-img">
-                                                <img src="{% static 'frontend/img/news_/' %}{{ HotNews.posts_img }}" alt="" width="345" height="230">
+                                                <img src="{{ HotNews.posts_img|generate_thumbnail }}" width="345px" height="230px">
                                             </div>
                                             <div class="weekly2-caption">
                                                 <h4><a href="{% url 'cemarapapua_front:detailposts' HotNews.posts_id %}">{{ HotNews.posts_title }}</a></h4>

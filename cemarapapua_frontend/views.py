@@ -7,6 +7,7 @@ from django.views import View
 from cemarapapua_app.models import *
 from django.db.models import Max
 from django.db.models import Count
+from global_var.global_var import dropbox_
 import requests
 import pprint
 
@@ -41,8 +42,7 @@ class Cemarapapua_front_index(View):
         databeritaTerpopulerOne     = Postsberita.objects.all().order_by('-posts_page_view')[:1]
         datafituHome                = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
         dataGerejaHome              = Postsberita.objects.filter(category_id=2)[:5]
-        dataOpiniHome               = Postsberita.objects.filter(category_id=14)[:5]
-       
+        dataOpiniHome               = Postsberita.objects.filter(category_id=14)[:5]    
 
         dataMenu = {
             "menuheader"                : datamenuHome,
@@ -292,4 +292,26 @@ class Detail_post(View):
             
         }
         return render(request,'frontend/detail_posts.html',dataPostsNews)
+# detail firman tuhan
+class Detail_firtu(View):
+    def get(self, request,pk):
+        mdetailFirtu            = Postsfirmantuhan.objects.filter(firtu_id = pk)
+        dataGroupByKategori     = Mastercategory.objects.all().annotate(
+                count_post      = Count('categorys', filter=Q(postsberita__category_id = F('category_id'))))
+        databeritaTerpopuler    = Postsberita.objects.all().order_by('-posts_page_view')[:5]
+        databeritaterkait       = Postsberita.objects.order_by('-posts_id')[:5]
+        datafituview            = Postsfirmantuhan.objects.all().order_by('-firtu_id')[:5]
+        dataKegiatan_gereja    = Postsberita.objects.filter(category_id = 2).order_by('-posts_id')[:10]
+        mCommentar = CommetarPengunjung.objects.filter(posts_id = pk)
+        dataFirmantuhan = {
+            "ViewDetailFirtu"           : mdetailFirtu,
+            "dataJumlahKategori"        : dataGroupByKategori,
+            "databeritaTerpopulerView"  : databeritaTerpopuler,
+            "beritaTerkait"             : databeritaterkait, 
+            "dataFirtuView"             : datafituview,
+            "ViewCOmmentar"             : mCommentar,
+            "dataViewGereja"            : dataKegiatan_gereja
+            
+        }
+        return render(request,'frontend/detail_firtu.html',dataFirmantuhan)
 

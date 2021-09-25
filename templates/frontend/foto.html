@@ -1,6 +1,6 @@
 {% extends "frontend/index.html" %}
 {% load static %}
-
+{% load custom_tags %}
 {% block content %}
    <!--================Blog Area =================-->
    <section class="blog_area single-post-area section-padding" style="padding-top: 10px;">
@@ -12,8 +12,8 @@
                   <div class="row gallery-item">
                     {% for ViewGalerry in FotoView  %}
                         <div class="col-md-4">
-                            <a href="{% static 'frontend/img/gallery/' %}{{ ViewGalerry.gallery_img }}" class="img-pop-up">
-                                <div class="single-gallery-image" style="background: url('{% static 'frontend/img/gallery/' %}{{ ViewGalerry.gallery_img }}');" >
+                            <a href="{{ ViewGalerry.gallery_img|generate_thumbnail }}" class="img-pop-up">
+                                <div class="single-gallery-image" style="background: url('{{ ViewGalerry.gallery_img|generate_thumbnail }}');" >
                                     
                                     <div style="padding:3px; background-color:#146e42eb;">
                                         <center><p style="color: cyan;">{{ ViewGalerry.album_id.album_name }}</p></center>
@@ -106,7 +106,7 @@
                                               {% for listBeritaTerkait in beritaTerkait %}
                                                 <div class="weekly2-single">
                                                     <div class="weekly2-img">
-                                                        <img src="{% static 'frontend/img/news_/' %}{{ listBeritaTerkait.posts_img }}" alt="" width="202" height="133">
+                                                        <img src="{{ listBeritaTerkait.posts_img|generate_thumbnail }}" alt="" width="202" height="133">
                                                         <p align='justify' style="font-size: 12px;">{{listBeritaTerkait.user_id.full_name}}  | {{listBeritaTerkait.posts_date}} </p>
                                                     </div>
                                                     <div class="weekly2-caption">
@@ -163,11 +163,11 @@
                 </aside>
                   <aside class="single_sidebar_widget popular_post_widget">
                       <h3 class="widget_title">Terpopuler</h3>
-                            {% for dataTerpopuler in databeritaTerpopulerView %}
+                                {% for dataTerpopuler in databeritaTerpopulerView %}
                                 <div class="media post_item">
-                                    <img src="{% static 'frontend/img/news_/' %}{{ dataTerpopuler.posts_img }}" alt="post" width="80px" height="80px">
+                                    <img src="{{ dataTerpopuler.posts_img|generate_thumbnail }}" alt="post" width="80px" height="80px">
                                     <div class="media-body">
-                                        <a href="detail_news.html">
+                                        <a href="{% url 'cemarapapua_front:detailposts' dataTerpopuler.posts_id %}">
                                             <h3>{{ dataTerpopuler.posts_title }}</h3>
                                         </a>
                                         <p>{{ dataTerpopuler.posts_date }}</p>

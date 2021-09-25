@@ -1,8 +1,9 @@
 from os import stat
+import re
 from django.core import exceptions
 from django.db.models import Case, When, F, Value, BooleanField
 from cemarapapua_app.models import Mastermenu
-import bcrypt,dropbox, os
+import bcrypt,dropbox, os,json, requests
 from cemarapapua.settings import SESI_ADMIN
 from functools import wraps
 from django.shortcuts import redirect
@@ -55,7 +56,8 @@ def my_login_checking(function):
 
 class dropbox_:
     def __init__(self):
-        self.dbx = dropbox.Dropbox('fNYJnMeO5CQAAAAAAAAAAfaZc_MmCONfdNAFUY8zVqndxZG68dqrQYrKeQsPM3HH')
+        self.token = 'i80qo6Kk1aUAAAAAAAAAAWh45o60iDAF_zbUuFUfkjTU2V7o2CG3_rZ6YaTPxzN9'
+        self.dbx = dropbox.Dropbox(self.token)
     
     def cekakun(self):
         return self.dbx.users_get_current_account()
@@ -69,6 +71,24 @@ class dropbox_:
             status = False
             print('Error Upload Dropbox', e)
         return status
+    
+    # get thumbnail untuk menampilkan image dari dropbox 
+    def get_thumbnail(self, path):
+        return self.dbx.files_get_thumbnail(path=path)
+    # get_createshared_link untuk ambil link lokasi / path dari source gambar/file
+    def get_createshared_link(self, path, short_url=False):
+        hed = {'Authorization': 'Bearer ' + self.token}
+        data = {
+                    "path": path,
+                    "short_url": short_url
+                }
+
+        url = 'https://api.dropboxapi.com/2/sharing/create_shared_link'
+        response = requests.post(url, json=data, headers=hed)
+        # print(response)
+        # print(response.json())
+        return response.json()['url'].replace('dl=0', 'dl=1') if response.status_code == 200 else ''
+
 class upload_file:
     def handle_uploaded_file(self, file_ ,filename=''):
         fss = FileSystemStorage(location = MEDIA_ROOT)

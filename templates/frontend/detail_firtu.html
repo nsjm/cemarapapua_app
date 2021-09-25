@@ -9,20 +9,18 @@
            
           <div class="col-lg-8 posts-list">
              <div class="single-post">
-                {% for detailposts in ViewDetailPostNews %}
+                {% for detailfirtu in ViewDetailFirtu %}
                 <div class="feature-img">
-                   <img class="img-fluid" src="{{ detailposts.posts_img|generate_thumbnail }}" alt="">
+                   <img class="img-fluid" src="{{ detailfirtu.firtu_img|generate_thumbnail }}" alt="">
                    <!-- <label style="font-size: small;"><i></i></label> -->
                 </div>
                 <div class="blog_details">
-                   <h2>{{ detailposts.posts_title }}</h2>
+                   <h2>{{ detailfirtu.firtu_title }}</h2>
                     <ul class="blog-info-link mt-3 mb-4">
-                        <li><a href="#"><i class="fa fa-user"></i>{{detailposts.user_id.full_name}}</a></li>
-                        <li><a href="#"><i class="fa fa-tag"></i> {{ detailposts.category_id }}</a></li>
-                        <li><a href="#"><i class="fa fa-calendar"></i> {{ detailposts.posts_date }}</a></li>
+                        <li><a href="#"><i class="fa fa-calendar"></i> {{ detailfirtu.firtu_date }}</a></li>
                     </ul>
                     <!-- {% autoescape off %} -->
-                        {{ detailposts.posts_desc }}
+                        {{ detailfirtu.firtu_desc }}
                     <!-- {% endautoescape %} -->
                    
                 </div>

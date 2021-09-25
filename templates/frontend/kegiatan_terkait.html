@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 {% block content %}
 
     <div class="weekly2-news-area pt-50 pb-30 gray-bg" style="padding-top: 10px; padding-bottom: 10px; background: #2679511c;">
@@ -25,7 +26,7 @@
                                         {% for terkaitGereja in beritaTerkait %}
                                         <div class="weekly2-single">
                                             <div class="weekly2-img">
-                                                <img src="{% static 'frontend/img/news_/' %}{{ terkaitGereja.posts_img }}" alt="">
+                                                <img src="{{ terkaitGereja.posts_img|generate_thumbnail }}" alt="">
                                             </div>
                                             <div class="weekly2-caption">
                                                 <h4><a href="{% url 'cemarapapua_front:detailposts' terkaitGereja.posts_id %}">{{ terkaitGereja.posts_title }}</a></h4>
