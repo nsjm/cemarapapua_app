@@ -29,7 +29,7 @@ DEBUG = DEBUG_
 SESI_ADMIN = 'cemarapapua_admin'
 
 # ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'cemara-papua.com', 'cemara-papua.com:8000']
-ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'cemara-papua.com']
+ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'cemara-papua.com','153.92.5.21','153.92.5.21:8000']
 
 
 # Application definition
